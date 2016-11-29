@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 class Account:
     def __init__(self,username, pw):
@@ -9,11 +9,26 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "This is the homepage"
+    return render_template("index.html")
 
-@app.route('/english')
+@app.route('/engels')
 def english():
     return "<h2>Testing HTML English</h2>"
+@app.route('/werk')
+def werk():
+    return "<h2>Testing HTML werk</h2>"
+@app.route('/analyse')
+def analyse():
+    return "<h2>Testing HTML analyse</h2>"
+@app.route('/development')
+def development():
+    return "<h2>Testing HTML development</h2>"
+@app.route('/project')
+def project():
+    return "<h2>Testing HTML project</h2>"
+@app.route('/spar')
+def spar():
+    return "<h2>Testing HTML spar</h2>"
 
 if __name__ == "__main__":
     app.run(debug=True)
