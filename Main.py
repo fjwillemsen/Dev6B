@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from Development import Development
 
 class Account:
     def __init__(self,username, pw):
@@ -14,18 +15,23 @@ def index():
 @app.route('/engels')
 def english():
     return "<h2>Testing HTML English</h2>"
+
 @app.route('/werk')
 def werk():
     return "<h2>Testing HTML werk</h2>"
+
 @app.route('/analyse')
 def analyse():
     return "<h2>Testing HTML analyse</h2>"
+
 @app.route('/development')
 def development():
-    return "<h2>Testing HTML development</h2>"
+    return Development.get(Development)
+
 @app.route('/project')
 def project():
     return "<h2>Testing HTML project</h2>"
+
 @app.route('/spar')
 def spar():
     return "<h2>Testing HTML spar</h2>"
