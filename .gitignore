@@ -23,7 +23,16 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-*.idea/
+
+# User-specific stuff:
+.idea/encodings.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/copyright/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/compiler.xml
+*.iml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
