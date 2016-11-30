@@ -25,14 +25,14 @@
     <Compile Include="Main.py" />
     <Compile Include="Person.py" />
     <Compile Include="Subject.py" />
-    <Compile Include="testPerson.py" />
-    <Compile Include="testSubject.py">
+    <Compile Include="Tests\testPerson.py" />
+    <Compile Include="Tests\testSubject.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="testMain.py">
+    <Compile Include="Tests\testMain.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="testWorld.py">
+    <Compile Include="Tests\testWorld.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="World.py" />
@@ -41,6 +41,7 @@
     <Content Include="templates\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tests\" />
     <Folder Include="templates" />
   </ItemGroup>
   <ItemGroup>
