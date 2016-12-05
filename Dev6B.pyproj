@@ -22,8 +22,14 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="vak_project\AbstractProject.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Main.py" />
     <Compile Include="Person.py" />
+    <Compile Include="vak_project\Project1.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Subject.py" />
     <Compile Include="Tests\testPerson.py" />
     <Compile Include="Tests\testSubject.py">
@@ -41,6 +47,7 @@
     <Content Include="templates\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="vak_project\" />
     <Folder Include="Tests\" />
     <Folder Include="templates" />
   </ItemGroup>
