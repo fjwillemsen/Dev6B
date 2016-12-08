@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from Development import Development
 
 class Account:
@@ -27,6 +27,15 @@ def analyse():
 @app.route('/development')
 def development():
     return Development.get(Development)
+
+@app.route('/development-answer', methods=['POST'])
+def developmentanswer():
+    print('Answer: ' + str(request.form.get('answer')))
+    print('Useranswer: ' + str(request.form.get('useranswer')))
+    if str(request.form.get('answer')) == str(request.form.get('useranswer')):
+        return "<p>Congratz!</p>"
+    else:
+        return "<p>Failure</p>"
 
 @app.route('/project')
 def project():
