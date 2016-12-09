@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from Development import Development
+from Spar import Spar
 
 class Account:
     def __init__(self,username, pw):
@@ -34,7 +35,7 @@ def project():
 
 @app.route('/spar')
 def spar():
-    return "<h2>Testing HTML spar</h2>"
+    return Spar.get(Spar)
 
 if __name__ == "__main__":
     app.run(debug=True)
