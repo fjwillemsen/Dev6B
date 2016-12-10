@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from Development import Development
 import webbrowser,time
 from ProjectTask import *
+from datetime import datetime
 class Account:
     def __init__(self,username, pw):
         self._username = username
@@ -47,7 +48,9 @@ def project1(project_id):
 @app.route('/project_task', methods=['POST'])
 def projectTask():
     taskID =request.form['taskID']
-    task.updateListOftask(taskID)
+
+   # task.updateListOftask(taskID)
+    task.isCooldownOver(taskID)
     return render_template("Projects.html",taskList=task.getListOfTask(1))
 
 if __name__ == "__main__":
