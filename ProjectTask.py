@@ -9,7 +9,7 @@ class ProjectTask:
         self.project78 = [("78-1",'task1',5),("78-2",'task2',10),("78-3",'task3',10),("78-4",'task4',10),("78-5",'task5',10),("78-6",'task6',10)];
         self.listOfProjectTask = (self.project1,self.project2,self.project3,self.project4,self.project56,self.project78);
         self.lastActionDate = None;
-        self.cooldownSecOver = 1;
+        self.cooldownSecOver = None;
 
     def getListOfTask(self,project_id):
         self.project_id =project_id-1
@@ -35,5 +35,15 @@ class ProjectTask:
      #   else:
     #        return "False"
    #    datetime.timedelta.total_seconds
-
+    def getSecTimeLeftOnCounter(self):
+        if self.lastActionDate is None or self.cooldownSecOver is None:
+            
+            return 0
+        else:
+            
+            secLeft =  self.cooldownSecOver - ((datetime.now()-self.lastActionDate).total_seconds())
+            if (secLeft >= 0 ):
+                return secLeft
+            else:
+                return 0
 #print(ProjectTask(1).getListOfTask()[1])
