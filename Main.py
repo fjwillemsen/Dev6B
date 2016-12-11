@@ -1,6 +1,9 @@
 from flask import Flask, render_template
-from Development import Development
+
+from classes.Development import Development
+from classes.Peercoaching import Peercoaching
 from Spar import Spar
+
 
 class Account:
     def __init__(self,username, pw):
@@ -17,9 +20,9 @@ def index():
 def english():
     return "<h2>Testing HTML English</h2>"
 
-@app.route('/werk')
-def werk():
-    return "<h2>Testing HTML werk</h2>"
+@app.route('/peercoaching')
+def peercoaching():
+    return Peercoaching.get(Peercoaching)
 
 @app.route('/analyse')
 def analyse():
