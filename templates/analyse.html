@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyse</title>
+    <style>
+        body {
+            background: url("http://www.considi.com/content/uploads/2016/01/Lean_Office.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+
+        }
+        span {
+            display:inline;
+            background-color:black;
+            color: floralwhite;
+        }
+
+        h2 {
+
+            color: maroon;
+            text-align: center;
+        } 
+
+        div {
+            background-color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 5vh;
+            width: 100vw;
+        }
+
+        #subjects {
+            background-color: white;
+        }
+    </style>
+</head>
+<p style="font-size: 50px;" ><span>{{ user }}, Please arange the following requirements according to their priority:</span></p>
+
+
+<table>
+
+    {% for key, Requirement in requirements.items() %}
+            <div>({{key}}) :{{Requirement.text  }} : ({{Requirement.priority.text  }}) </div>
+      {% endfor %}
+
+</table>
+
+{% if completed %}
+     <span>You ve input a wrong sequence of Priorioties!
+         Please fill in the input boxes with the appropiate value:</span>
+  {% else %}
+        <span>Please fill in the input boxes with the appropiate value:</span>
+ {% endif %}
+<form action="/analyse" method="post"><span>
+    First:<input name="First" value="0">
+    Second:<input name="Second" value="0">
+    Third:<input name="Third" value="0">
+    Last:<input name="Fourth" value="0">
+    <button>Submit!</button>
+</span></form>
+
+
+</html>
