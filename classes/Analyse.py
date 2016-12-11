@@ -41,6 +41,8 @@ class Requirement:
         self.priority = priority
         self.text = text
         self.position = position
+
+
 def randomreq():
     textrand = [10]
     for i in range(10):
@@ -73,7 +75,7 @@ class Analyse:
         # self.requirementfour = Requirement("Add Coffee Button", would, Status(False))
         self.username = username
 
-
+    
     def GetCurrentView(self,request):
         usern = self.username
         if request.method == 'POST':
