@@ -1,9 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from classes.Development import Development
 from classes.Peercoaching import Peercoaching
 from Spar import Spar
-
+from spar_game import spar_game
 
 class Account:
     def __init__(self,username, pw):
@@ -40,5 +40,20 @@ def project():
 def spar():
     return Spar.get(Spar)
 
+@app.route('/spar-game', methods=['POST'])
+def sparg():
+    item = request.form['item']
+    print(item)
+    return spar_game.get(spar_game, item,spar_game.generate_answers(spar_game),spar_game.generate_answers(spar_game),spar_game.generate_answers(spar_game),spar_game.generate_answers(spar_game))
+
+@app.route('/spar-check', methods=['POST'])
+def sparcheck():
+    useranswer = request.form['answer']
+    answer = spar_game.generate_answers(spar_game)
+    print(answer)
+    return spar_game.check(spar_game, useranswer, answer)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
