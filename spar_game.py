@@ -3,6 +3,7 @@ from string import Template
 import random
 
 class spar_game:
+    count=0
     def __init__(self, duration):
         self.sDuration = duration
 
@@ -13,7 +14,11 @@ class spar_game:
 
     def generate_answers(self):
         #get answers from database
-        answer = "test1"
+        if(self.count<2):
+            self.count+=1
+            answer = "test1"
+        else:
+            answer = "test2"
         return answer
 
     def get(self,sitem,quest,ans1,ans2,ans3):
