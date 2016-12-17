@@ -26,7 +26,7 @@
             width: 100vw;
         }
 
-        #question {
+        #spar_form {
             background-color: white;
         }
 
@@ -39,18 +39,62 @@
 </head>
 <body>
 <div>
-{#    <img id="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Spar-logo.svg/1280px-Spar-logo.svg.png">#}
     <h1>You are buying $item</h1>
-    <p>Answer the following question to reduce the cost of your $item by $discount %</p>
-    <form method="post" action="/spar-check" id="question_form">
-        <label>$question</label><br>
-            <input type="radio" name="answer" id=$answer1 value=$answer1> $answer1 </input><br>
-            <input type="radio" name="answer" id=$answer2 value=$answer2> $answer2 </input><br>
-            <input type="radio" name="answer" id=$answer3 value=$answer3> $answer3 </input><br>
+    <span id="time"></span>
+    <form method="post" name="spar_form" id="spar_form" action="/spar-check" id="question_form">
+        <p>info</p>
+        <label>$q1</label><br>
+            <input type="radio" name="q1a" value="empty" hidden checked/>
+            <input type="radio" name="q1a" value=$q1a1> $q1a1 </input><br>
+            <input type="radio" name="q1a" value=$q1a2> $q1a2 </input><br>
+            <input type="radio" name="q1a" value=$q1a3> $q1a3 </input><br><br>
+        <label>$q2</label><br>
+            <p>tes<input type="text" placeholder="test" name="q2a"/>1</p>
+        <label>$q3</label><br>
+            <input type="radio" name="q3a" value="empty" hidden checked/>
+            <input type="radio" name="q3a" value=$q3a1> $q3a1 </input><br>
+            <input type="radio" name="q3a" value=$q3a2> $q3a2 </input><br>
+            <input type="radio" name="q3a" value=$q3a3> $q3a3 </input><br><br>
+        <label>$q4</label><br>
+            <input type="radio" name="q4a" value="empty" hidden checked/>
+            <input type="radio" name="q4a" value=$q4a1> $q4a1 </input><br>
+            <input type="radio" name="q4a" value=$q4a2> $q4a2 </input><br>
+            <input type="radio" name="q4a" value=$q4a3> $q4a3 </input><br><br>
+        <label>$q5</label><br>
+            <input type="radio" name="q5a" value="empty" hidden checked/>
+            <input type="radio" name="q5a" value=$q5a1> $q5a1 </input><br>
+            <input type="radio" name="q5a" value=$q5a2> $q5a2 </input><br>
+            <input type="radio" name="q5a" value=$q5a3> $q5a3 </input><br><br>
+
         <input type="submit" value="Answer">
+
     </form>
 </div>
 
 
 </body>
 </html>
+<script type="text/javascript">
+
+    function time(duration,display) {
+        var timer = duration, min, sec;
+        setInterval(function () {
+            min = parseInt(timer / 60, 10);
+            sec = parseInt(timer % 60, 10);
+
+            min = min < 10 ? "0" + min : min;
+            sec = sec < 10 ? "0" + sec : sec;
+
+            display.textContent = min + ":" + sec;
+
+            if (--timer < 0) {
+                document.forms["spar_form"].submit();
+            }
+        }, 1000);
+    }
+    window.onload = function () {
+        var Min = $t * 6,
+            display = document.querySelector('#time');
+        time(Min, display);
+    }
+</script>

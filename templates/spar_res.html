@@ -26,7 +26,7 @@
             width: 100vw;
         }
 
-        #items {
+        #result {
             background-color: white;
         }
 
@@ -35,27 +35,23 @@
             max-width:400px;
             max-height:80px;}
     </style>
-
 </head>
+
+<script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
+
 <body>
 <div>
-    <h1>Welcome</h1>
-    <p>How can I help you?</p>
-    <div id="items">
-        <form method="post" action="/spar-game" id="form">
-            <input type="radio" name="item" id="energy" value="energy"> Energy drink (Easy) </input><br>
-            <input type="radio" name="item" id="sandwich" value="bread"> Sandwich (Normal)</input><br>
-            <input type="radio" name="item" id="pizza" value="pizza"> Pizza (Hard) </input><br>
-            <h3>Instructions:</h3>
-            <p>When you buy the item you will get a quiz with questions related to the spar.<br>
-                You will have 1 minute to answer all the questions.<br>
-                If you do not feel confident about your knowledge about Spar you can use the given information.<br>
-                After you answered the question or the minute has past you will go to the result screen where you will see your results
-            </p>
-            <input type=submit value=Buy>
-        </form>
+    <h1>Result</h1>
+    <div id="result">
+        <p>Your score was: $score</p>
+        <a href="/spar">Retry?</a>
+        <br><br>
+        <p>Return to <a href="/">Home</a></p>
     </div>
 </div>
-
 </body>
 </html>
