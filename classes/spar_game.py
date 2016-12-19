@@ -35,9 +35,6 @@ class spar_game:
     quests = []
 
 
-    def __init__(self, duration):
-        self.sDuration = duration
-
     def gen_question(self):
         self.qID = random.sample(range(0,6),4)
         # self.qID = random.sample(range(0,4), 4)
@@ -58,8 +55,8 @@ class spar_game:
         # self.quests.append(self.oq)
         # print(str(self.quests))
 
-    def get_quest(self,i):
-        return self.quests[i]
+    # def get_quest(self,i):
+    #     return self.quests[i]
 
 
 
@@ -103,6 +100,7 @@ class spar_game:
 
     def set_item(self,itm):
         self.item = itm
+        return self.item
 
     def incscore(self,i):
         self.score += i
