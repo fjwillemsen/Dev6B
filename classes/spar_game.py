@@ -27,25 +27,13 @@ class spar_game:
     q5a=['244','251','249']
     q6a=['404','505','606']
 
-    correctOA=['South Africa']
+    correctOA=['south africa']
     oq = ['In which of the following countries does the Spar have the highest sales(in millions) -'
           ' France, Italy or South Africa']
     oq1a=['South Africa']
 
     quests = []
 
-    # ids = random.sample(range(0,4),4)
-    # qID = []
-    #     q1 = question(1, 'In what year was Spar founded', '1946', '1932', '1968', '1932')
-    #     q2 = question(2, 'Which of the following is not part of Spar', 'Spar Drive-Thru', 'Megaspar', 'Hotspar',
-    #                   'Megaspar')
-    #     q3 = question(3, 'In which of the following countries was Spar founded', 'Germany', 'Netherlands', 'France',
-    #                   'Netherlands')
-    #     q4 = question(4, 'When where the first Spar stores opened in Indonesia', '1987', '2004', '2015', '2004')
-    #     q5 = question(5, 'What is the average store size(m2) in The Netherlands', '404', '505', '606', '404')
-    #     q6 = question(6, 'How many Spar stores are located in The Netherlands', '244', '251', '249', '244')
-    #     q7 = question(7, 'In which of the following countries does the Spar have the highest sales(in millions)',
-    #                   'France', 'Italy', 'South Africa', 'South Africa')
 
     def __init__(self, duration):
         self.sDuration = duration
@@ -104,11 +92,17 @@ class spar_game:
 
     def difficulty(self,item):
         if item == 'energy':
-            self.time = 3
+            self.time = 1.5
+            return 0.5
         elif item == 'bread':
-            self.time = 2
-        elif item == 'pizza':
             self.time = 1
+            return 1
+        elif item == 'pizza':
+            self.time = 0.5
+            return 2
+
+    def set_item(self,itm):
+        self.item = itm
 
     def incscore(self,i):
         self.score += i
@@ -116,7 +110,7 @@ class spar_game:
     def getscore(self):
         return self.score
 
-    def get(self,it,s):
+    def get(self,it):
         # self.gen_question(self)
         template = Template(render_template("spar_game.html"))
         return template.substitute(item=it,q1=self.q[self.qID[0]],q2=self.q[self.qID[1]],q3=self.q[self.qID[2]],q4=self.q[self.qID[3]],
@@ -125,13 +119,15 @@ class spar_game:
                                    q2a1=self.get_answer(self,self.qID[1],0),q2a2=self.get_answer(self,self.qID[1],1),q2a3=self.get_answer(self,self.qID[1],2),
                                    q3a1=self.get_answer(self,self.qID[2],0),q3a2=self.get_answer(self,self.qID[2],1),q3a3=self.get_answer(self,self.qID[2],2),
                                    q4a1=self.get_answer(self,self.qID[3],0),q4a2=self.get_answer(self,self.qID[3],1),q4a3=self.get_answer(self,self.qID[3],2),
-                                   score=s,t=self.time)
+                                   t=self.time)
 
-    def check(self,s,ua):
-        template = Template(render_template("spar_res.html"))
-        for index in range(len(ua)):
-            print("Correct answer:" + str(self.get_correctA(index) + ". Input: " + ua[index]))
-            if self.get_correctA(index) == ua[index]:
-                self.incscore(50)
+    def check(self,ua):
         self.score = 0
-        return template.substitute(score=s)
+        template = Template(render_template("spar_res.html"))
+        for index in range(len(ua)-1):
+            if str(self.correctA[self.qID[index]]) == str(ua[index]):
+                self.incscore(self,50)
+        if self.correctOA[0] == ua[4]:
+            self.incscore(self,50)
+        self.score = self.score*self.difficulty(self,self.item)
+        return template.substitute(score=self.score)
