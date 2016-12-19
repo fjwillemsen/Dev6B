@@ -1,6 +1,7 @@
  # Priority of a requirement. (Must, should, could or would)
 from flask import render_template,request
 import random
+from datetime import datetime, timedelta
 
 
 class Priority:
@@ -42,7 +43,8 @@ class Requirement:
         self.text = text
         self.position = position
 
-
+#Returns a random string for a requirement
+#TODO: Make it so that there can't be duplicate requirements (Ex: a must and a could both have "ADD MAIL-SUPPORT" as text)
 def randomreq():
     textrand = [10]
     for i in range(10):
@@ -60,41 +62,69 @@ def randomreq():
     textrand[10] = "Implement Design Patterns"
     return textrand[random.randint(0,10)]
 
+#This class keeps track of which priorities have been taken and returns one that hasn t been taken previously with getpriority
+class Randomater:
+    must = Priority(True, False, False, False)
+    musttaken = False
+    should = Priority(False, True, False, False)
+    shouldtaken = False
+    could = Priority(False, False, True, False)
+    couldtaken = False
+    would = Priority(False, False, False, True)
+    wouldtaken = False
+    def getpriority(self):
+        lucioooballl = random.randint(0,3)
+        if( lucioooballl == 0):
+            if(not self.musttaken):
+                self.musttaken = True
+                return self.must
+            else:
+                return self.getpriority()
+        if (lucioooballl == 1):
+            if (not self.shouldtaken):
+                self.shouldtaken= True
+                return self.should
+            else:
+                return self.getpriority()
+        if (lucioooballl == 2):
+            if (not self.wouldtaken):
+                self.wouldtaken = True
+                return self.would
+            else:
+                return self.getpriority()
+        if (lucioooballl == 3):
+            if (not self.couldtaken):
+                self.couldtaken = True
+                return self.could
+            else:
+                return self.getpriority()
+
  #Actual Analyse Class
 class Analyse:
     def __init__(self, username):
-        must = Priority(True,False,False,False)
-        should = Priority(False, True, False, False)
-        could = Priority(False, False, True, False)
-        would = Priority(False, False, False, True)
-        self.requirements = dict({1: Requirement(randomreq(), could, Status(False),1),2:Requirement(randomreq(), would, Status(False),2),3:Requirement(randomreq(), must,Status(False),3),4:Requirement(randomreq(), should, Status(False),4)})
-
-        # self.requirementone = Requirement("Make UI", must,Status(False))
-        # self.requirementtwo = Requirement("Add Charts", should, Status(False))
-        # self.requirementthree = Requirement("Add Email Notifications", could, Status(False))
-        # self.requirementfour = Requirement("Add Coffee Button", would, Status(False))
+        self.requirements = self.GenerateRequirements()
         self.username = username
 
-    
+        self.cooldowntill = datetime.now() - timedelta(days=10)
     def GetCurrentView(self,request):
         usern = self.username
-        if request.method == 'POST':
-
-            requir = self.requirements
-
+        if self.cooldowntill > datetime.now():
+            return render_template("analysecompleted.html", user=usern, date=self.cooldowntill)
+        elif request.method == 'POST':
             first = request.form['First']
             second = request.form['Second']
             third = request.form['Third']
             four = request.form['Fourth']
-            if(self.Check(first,second,third,four,requir)):
+            if self.Check(first,second,third,four,self.requirements):
                 print("test")
-                return render_template("analysecompleted.html", user=usern)
-
+                self.cooldowntill = datetime.now() + timedelta(minutes=1)
+                return render_template("analysecompleted.html", user=usern, date=self.cooldowntill)
             else:
                 print("test2")
                 return render_template("analyse.html", user=usern, requirements=self.requirements, completed = True)
-
+        #IF NOT A POST REQUEST; RELOAD THE PAGE AND GENERATE NEW REQUIREMENTS
         else:
+            self.requirements = self.GenerateRequirements()
             return render_template("analyse.html", user=usern, requirements=self.requirements, completed=False)
 
     def Check(self,first, second, third, fourth,requirements):
@@ -116,6 +146,14 @@ class Analyse:
         else:
             returnval = False
         return returnval
+    def GenerateRequirements(self):
 
+        hallojumbo = Randomater()
+        requirements = dict(
+            {1: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 1),
+             2: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 2),
+             3: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 3),
+             4: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 4)})
+        return requirements
 
 

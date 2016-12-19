@@ -24,9 +24,11 @@ def english():
 def peercoaching():
     return Peercoaching.get(Peercoaching)
 
+
+analypage = Analyse("USERNAME")
 @app.route('/analyse',methods=['GET', 'POST'])
 def analyse():
-    return Analyse.GetCurrentView(Analyse("Bert"), request)
+    return Analyse.GetCurrentView(analypage, request)
 
 @app.route('/development')
 def development():
