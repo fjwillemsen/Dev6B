@@ -2,6 +2,9 @@
 <head>
 </head>
    <body>
+   <a href="/"><b>Home</b></a>
+   <br>
+   <br>
    <b >Insufficient correct answers will result in waiting few seconds before next submit is possible. </b>
 
    <div id = "status"></div>
@@ -57,6 +60,11 @@
 
    </body>
 </html>
+                        <script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
 <script type="text/javascript">
    if({{failed|safe}} == 1){
       setTimeout(function(){window.location.href ='/english'},{{time|safe}})
