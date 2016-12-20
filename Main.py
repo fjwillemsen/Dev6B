@@ -19,14 +19,13 @@ def index():
 def english():
     return English().getView(request)
 
-
 @app.route('/peercoaching')
 def peercoaching():
     return Peercoaching.get(Peercoaching)
 
 @app.route('/analyse')
 def analyse():
-    return "<h2>Testing HTML analye</h2>"
+    return "<h2>Testing HTML analyse</h2>"
 
 @app.route('/development')
 def development():
