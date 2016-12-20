@@ -1,9 +1,9 @@
 from flask import Flask, render_template,request
-
 from ProjectTask import ProjectTask
 from Development import Development
 from Peercoaching import Peercoaching
 from english import English
+from Analyse import Analyse
 
 class Account:
     def __init__(self,username, pw):
@@ -26,9 +26,11 @@ def english():
 def peercoaching():
     return Peercoaching.get(Peercoaching)
 
-@app.route('/analyse')
+
+analypage = Analyse("USERNAME")
+@app.route('/analyse',methods=['GET', 'POST'])
 def analyse():
-    return "<h2>Testing HTML analyse</h2>"
+    return Analyse.GetCurrentView(analypage, request)
 
 @app.route('/development')
 def development():

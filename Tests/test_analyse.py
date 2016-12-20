@@ -32,10 +32,11 @@
 #     def test_Check(self):
 #         self.fail()
 from unittest import TestCase
-from classes import Analyse
+from Analyse import *
 
 class TestAnalyse(TestCase):
     testobject = Analyse("Bert")
 
     def test_GenerateRequirements(self):
         self.fail()
+

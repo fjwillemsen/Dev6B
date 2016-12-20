@@ -1,5 +1,7 @@
 from unittest import TestCase
-from classes.Analyse import *
+
+from Analyse import *
+
 
 class TestPriority(TestCase):
     def setUp(self):
