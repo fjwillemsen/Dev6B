@@ -1,5 +1,5 @@
 import unittest
-from classes.ProjectTask import *
+from ProjectTask import *
 
 class Test_Test_ProjectTask(unittest.TestCase):
     project_task = None
