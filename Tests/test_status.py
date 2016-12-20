@@ -1,3 +1,4 @@
+
 from unittest import TestCase
 
 from Analyse import Status
@@ -22,4 +23,3 @@ class TestStatus(TestCase):
             self.variabdone.setDone()
             if not self.variabdone.IsDone():
                 self.fail()
-
