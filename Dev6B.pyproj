@@ -38,7 +38,7 @@
     <Compile Include="Tests\testWorld.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test_ProjectTask.py" />
+    <Compile Include="Tests\Test_ProjectTask.py" />
     <Compile Include="World.py" />
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +48,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="vak_project\" />
     <Folder Include="Tests\" />
     <Folder Include="templates" />
   </ItemGroup>
