@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from classes.Development import Development
 from flask import Flask, render_template,request
 
+from ProjectTask import *
 from classes.Development import Development
 from classes.Peercoaching import Peercoaching
 from classes.english import English
@@ -12,6 +13,7 @@ class Account:
         self._pw =pw
 
 app = Flask(__name__)
+task = ProjectTask()
 
 @app.route('/')
 def index():
@@ -42,14 +44,28 @@ def developmentanswer():
         return "<p>Congratz!</p>"
     else:
         return "<p>Failure</p>"
-
-@app.route('/project')
+      
+@app.route('/project/')
 def project():
-    return "<h2>Testing HTML project</h2>"
+    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+  
+@app.route('/project/<int:project_id>')
+def project1(project_id):
+    return render_template("Projects.html",taskList=task.getListOfTask(project_id),time=task.getSecTimeLeftOnCounter()) 
 
+@app.route('/project_task', methods=['POST'])
+def projectTask():
+    taskID =request.form['taskID']
+
+    task.isCooldownOver(taskID)
+    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+  
 @app.route('/spar')
 def spar():
     return "<h2>Testing HTML spar</h2>"
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -24,6 +24,9 @@
   <ItemGroup>
     <Compile Include="Main.py" />
     <Compile Include="Person.py" />
+    <Compile Include="ProjectTask.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Subject.py" />
     <Compile Include="Tests\testPerson.py" />
     <Compile Include="Tests\testSubject.py">
@@ -35,10 +38,14 @@
     <Compile Include="Tests\testWorld.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Test_ProjectTask.py" />
     <Compile Include="World.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="templates\index.html" />
+    <Content Include="templates\Projects.html">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
