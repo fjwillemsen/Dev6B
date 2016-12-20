@@ -7,14 +7,14 @@ __author__ = 'floris-jan'
 
 class TestDevelopment(TestCase):
   def test_generateCode(self):
-    self.failUnlessEqual(len(Development.generateCode(Development, 12)), 12+2)
+    self.failUnlessEqual(len(Development.generateCode(12)), 12+2)
 
   def test_encodeString(self):
-    self.failUnlessEqual(len(Development.generateCode(Development, 12)), len(Development.generateCode(Development, 12)))
-    self.failUnless(Development.generateCode(Development, 12).find('-') == 4)
+    self.failUnlessEqual(len(Development.generateCode(12)), len(Development.generateCode(12)))
+    self.failUnless(Development.generateCode(12).find('-') == 4)
 
   def test_getDecryptedCode(self):
-    code = Development.generateCode(Development, 12)
+    code = Development.generateCode(12)
     result = ""
     for i in code:
         if i != '-':
