@@ -1,9 +1,9 @@
-import unittest, Development
+import unittest, classes.Development
 
 class Test_testDevelopment(unittest.TestCase):
 
     def test1(self):
-        self.failUnless(Development.generateCode(12))
+        self.failUnless(classes.Development.generateCode(12))
 
 def main():
     unittest.main()
