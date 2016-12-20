@@ -1,5 +1,10 @@
 from flask import Flask, render_template, request
-from Development import Development
+from classes.Development import Development
+from flask import Flask, render_template,request
+
+from classes.Development import Development
+from classes.Peercoaching import Peercoaching
+from classes.english import English
 
 class Account:
     def __init__(self,username, pw):
@@ -12,13 +17,14 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/english')
+@app.route('/english',methods = ['POST', 'GET'])
 def english():
-    return "<h2>Testing HTML English</h2>"
+    return English().getView(request)
 
-@app.route('/werk')
-def werk():
-    return "<h2>Testing HTML werk</h2>"
+
+@app.route('/peercoaching')
+def peercoaching():
+    return Peercoaching.get(Peercoaching)
 
 @app.route('/analyse')
 def analyse():
