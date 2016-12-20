@@ -1,9 +1,10 @@
 from flask import Flask, render_template
 from flask import request
 
-from classes.Development import Development
-from classes.Peercoaching import Peercoaching
-from classes.Analyse import Analyse
+from Analyse import Analyse
+from Development import Development
+from Peercoaching import Peercoaching
+
 
 class Account:
     def __init__(self,username, pw):

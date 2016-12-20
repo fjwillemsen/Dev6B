@@ -1,5 +1,7 @@
 from unittest import TestCase
-from classes.Analyse import Status
+
+from Analyse import Status
+
 
 class TestStatus(TestCase):
     def setUp(self):
