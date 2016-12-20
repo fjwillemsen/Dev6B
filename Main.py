@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from classes.Development import Development
 from flask import Flask, render_template,request
 
-from ProjectTask import *
+from classes.ProjectTask import ProjectTask
 from classes.Development import Development
 from classes.Peercoaching import Peercoaching
 from classes.english import English
