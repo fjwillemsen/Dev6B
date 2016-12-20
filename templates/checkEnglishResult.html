@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+</head>
+   <body>
+           <a href="/"><b>Home</b></a>
+   <br>
+   <br>
+        <p >Congratulations you have passed a super easy test.</p>
+        <ol>
+            {% for item in answers %}
+                <li>{{ item}}</li>
+            {% endfor %}
+        </ol>
+   </body>
+                        <script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
+</html>
+
