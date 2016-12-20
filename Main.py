@@ -1,5 +1,3 @@
-from flask import Flask, render_template, request
-from classes.Development import Development
 from flask import Flask, render_template,request
 
 from classes.ProjectTask import ProjectTask

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from string import Template
 
 class Development:
- 
+
     def __init__(self, level, duration):
         self.sLevel = level
         self.sDuration = duration
