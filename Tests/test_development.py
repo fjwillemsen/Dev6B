@@ -1,5 +1,5 @@
 from unittest import TestCase
-from classes.Development import Development
+from Development import Development
 from string import Template
 
 __author__ = 'floris-jan'
