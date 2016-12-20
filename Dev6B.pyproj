@@ -38,9 +38,7 @@
     <Compile Include="Tests\testWorld.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test_ProjectTask.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Test_ProjectTask.py" />
     <Compile Include="World.py" />
   </ItemGroup>
   <ItemGroup>
