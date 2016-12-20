@@ -25,7 +25,7 @@ def peercoaching():
 
 @app.route('/analyse')
 def analyse():
-    return "<h2>Testing HTML analyse</h2>"
+    return "<h2>Testing HTML analys</h2>"
 
 @app.route('/development')
 def development():
