@@ -89,5 +89,5 @@ def sparcheck():
 
 
 if __name__ == "__main__":
-    app.run(host='145.24.222.234', port=80)
+    app.run(host='145.24.222.234', port=8080)
     # app.run(debug=True)
