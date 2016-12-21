@@ -34,7 +34,7 @@ class Development:
                     result += str(int(i) - 3)
         return Development.encodeString(result)
 
-    def get(self, request):
+    def get(self):
         print("1")
         temp = Template(render_template("development.html"))
         code = self.generateCode(12)

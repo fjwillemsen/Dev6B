@@ -38,7 +38,7 @@ def analyse():
 
 @app.route('/development')
 def development():
-    return Development.get(request)
+    return Development.get(Development())
 
 @app.route('/development-answer', methods=['POST'])
 def developmentanswer():
@@ -66,7 +66,7 @@ def projectTask():
 
 @app.route('/spar')
 def spar():
-    return Spar.get(Spar)
+    return Spar.get(Spar())
 
 @app.route('/spar-game', methods=['POST'])
 def sparg():
