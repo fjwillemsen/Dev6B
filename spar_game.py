@@ -1,10 +1,6 @@
-from flask import Flask, render_template,g
+from flask import Flask, render_template
 from string import Template
-import sqlite3
-import os
-import sys
 import random
-from flask_sqlalchemy import SQLAlchemy
 
 
 class spar_game:
