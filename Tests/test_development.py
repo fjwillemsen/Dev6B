@@ -7,7 +7,7 @@ __author__ = 'floris-jan'
 class TestDevelopment(TestCase):
 
   def test_generateCode(self):
-    self.failUnlessEqual(len(Development.generateCode(12)), 12+2)
+    self.failUnlessEqual(len(Development.generateCode(Development, 12)), 12+2)
 
   def test_encodeString(self):
     self.failUnlessEqual(len(Development().generateCode(12)), len(Development().generateCode(12)))
