@@ -28,7 +28,7 @@ def english():
 
 @app.route('/peercoaching')
 def peercoaching():
-    return Peercoaching.get(Peercoaching)
+    return Peercoaching.get(Peercoaching())
 
 
 analypage = Analyse("USERNAME")
