@@ -59,8 +59,8 @@ class TestEnglish(TestCase):
 
     def test_opt5Check(self,):
         eng = English()
-        self.assertEqual(eng.opt5check("suppose"),"Correct")
-        self.assertEqual(eng.opt5check("supose"),"Wrong")
+        self.assertEqual(eng.opt5Check("tomorrow"),"Correct")
+        self.assertEqual(eng.opt5Check("tomorow"),"Wrong")
         self.assertEqual(eng.opt5Check("empty"),"Wrong")
 
     def test_govCheck(self, ):
