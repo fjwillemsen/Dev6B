@@ -38,7 +38,7 @@ def analyse():
 
 @app.route('/development')
 def development():
-    return Development.get(Development)
+    return Development.get(request)
 
 @app.route('/development-answer', methods=['POST'])
 def developmentanswer():
