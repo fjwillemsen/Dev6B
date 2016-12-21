@@ -1,0 +1,90 @@
+<html >
+<head>
+</head>
+   <body>
+   <a href="/"><b>Home</b></a>
+   <br>
+   <br>
+   <b >Insufficient correct answers will result in waiting few seconds before next submit is possible. </b>
+
+   <div id = "status"></div>
+   <hr>
+      <form action="/english" method = "POST" id="formId">
+         <b>Fill in the forms using letters only.</b>
+         <p>1. He (to like) <input type = "text" name = "Simple present" /> to eat fries. <b>(Simple present)</b></p>
+         <p>2. Yesterday he (to eat) <input type = "text" name = "Simple past"/> a large pizza. <b>(Simple past)</b></p>
+         <p>3. He (to phone) <input type = "text" name = "Going-to future" /> his friend. <b>(Going-to future)</b></p>
+         <p>4. I (to be) <input type ="text" name = "Present perfect" />  a lawyer since 1990. <b>(Present perfect)</b></p>
+         <p>5. I (to eat) <input type ="text" name = "Past perfect" />  a bowl of fried rice before I went to school. <b>(Past perfect)</b></p>
+         <hr>
+         <b>Choose correct spelling</b><br>
+         6.
+         <input type="radio" name="options1" value="empty" hidden checked> </input>
+         <input type="radio" name="options1" value="asspect"> asspect </input>
+         <input type="radio" name="options1" value="aspect"> aspect </input><br>
+         7.
+         <input type="radio" name="options2" value="empty" hidden checked> </input>
+         <input type="radio" name="options2" value="possible"> possible </input>
+         <input type="radio" name="options2" value="posible"> posible </input><br>
+         8.
+         <input type="radio" name="options3" value="empty" hidden checked> </input>
+         <input type="radio" name="options3" value="population"> population </input>
+         <input type="radio" name="options3" value="poppulation"> poppulation </input><br>
+         9.
+         <input type="radio" name="options4" value="empty" hidden checked> </input>
+         <input type="radio" name="options4" value="suppose"> suppose </input>
+         <input type="radio" name="options4" value="supose"> supose </input><br>
+         10.
+         <input type="radio" name="options5" value="empty" hidden checked> </input>
+         <input type="radio" name="options5" value="tomorow"> tomorow </input>
+         <input type="radio" name="options5" value="tomorrow"> tomorrow </input><br>
+         <hr>
+         <b>Fill in all sentences with one of the following words. Each word is only allowed to be used once.</b><br>
+         <p>spread - government - jobs - business - attended</p><br>
+         <p>The Chinese <input type ="text" name = "government" /> has a started a number of Confucius Institutes to <input type ="text" name = "spread" />  the Chinese language and
+         the country’s culture. Currently there are such institutes in over 60 countries. 2,000 students have <input type ="text" name = "attended" />
+         the program in the last two years.
+         In the Philippines people think that learning Chinese will allow them to get better <input type ="text" name = "jobs" />  in the future. As
+         more and more Chinese travel to other countries as tourists or on <input type ="text" name = "business" />  , people who can speak Chinese
+         have an advantage over others.</p>
+         <br>
+         {% if failed == 1 %}
+            <input type = "submit" value = "submit" disabled/>
+         {% else%}
+            <input type = "submit" value = "submit" />
+         {% endif %}
+
+
+      </form>
+
+
+   </body>
+</html>
+                        <script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
+<script type="text/javascript">
+   if({{failed|safe}} == 1){
+      setTimeout(function(){window.location.href ='/english'},{{time|safe}})
+      countDown({{time|safe}}/1000,"status");
+   }
+    function countDown(secs , elem){
+        var element = document.getElementById(elem);
+        element.innerHTML = "<h2>please wait for " + secs + " seconds</h2>";
+        if (secs < 1) {
+            clearTimeout(timer);
+        }
+        secs --;
+        var timer = setTimeout('countDown('+secs+',"'+elem+'")', 1000);
+    }
+
+   	<!--window.onload = function() {-->
+		<!--var frm = document.getElementById("formId");-->
+		<!--frm.onsubmit = function() {-->
+			<!--document.getElementById("btnSubmit").disabled = true;-->
+		<!--}-->
+	<!--}-->
+
+</script>

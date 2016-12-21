@@ -1,3 +1,9 @@
+from flask import Flask, render_template,request
+from ProjectTask import ProjectTask
+from Development import Development
+from Peercoaching import Peercoaching
+from english import English
+from Analyse import Analyse
 from Spar import Spar
 from flask import Flask, render_template, request
 
@@ -12,29 +18,54 @@ class Account:
         self._pw =pw
 
 app = Flask(__name__)
+task = ProjectTask()
+
 @app.route('/')
 def index():
     return render_template("index.html")
 
-@app.route('/english')
+@app.route('/english',methods = ['POST', 'GET'])
 def english():
-    return "<h2>Testing HTML English</h2>"
+    return English().getView(request)
+
 
 @app.route('/peercoaching')
 def peercoaching():
     return Peercoaching.get(Peercoaching)
 
-@app.route('/analyse')
+
+analypage = Analyse("USERNAME")
+@app.route('/analyse',methods=['GET', 'POST'])
 def analyse():
-    return "<h2>Testing HTML analyse</h2>"
+    return Analyse.GetCurrentView(analypage, request)
 
 @app.route('/development')
 def development():
     return Development.get(Development)
 
-@app.route('/project')
+@app.route('/development-answer', methods=['POST'])
+def developmentanswer():
+    print('Answer: ' + str(request.form.get('answer')))
+    print('Useranswer: ' + str(request.form.get('useranswer')))
+    if str(request.form.get('answer')) == str(request.form.get('useranswer')):
+        return "<p>Congratz!</p>"
+    else:
+        return "<p>Failure</p>"
+
+@app.route('/project/')
 def project():
-    return "<h2>Testing HTML project</h2>"
+    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+
+@app.route('/project/<int:project_id>')
+def project1(project_id):
+    return render_template("Projects.html",taskList=task.getListOfTask(project_id),time=task.getSecTimeLeftOnCounter())
+
+@app.route('/project_task', methods=['POST'])
+def projectTask():
+    taskID =request.form['taskID']
+
+    task.isCooldownOver(taskID)
+    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
 
 @app.route('/spar')
 def spar():
@@ -60,5 +91,4 @@ def sparcheck():
     return spar_game.check(spar_game,useranswer)
 
 if __name__ == "__main__":
-    app.run(debug=True,port=12341)
-
+    app.run(debug=True)

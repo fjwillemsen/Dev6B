@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<head><style>
+    body{
+    text-align: center;
+    background: #00ECB9;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+h1{
+  color: #396;
+  font-weight: 100;
+  font-size: 40px;
+  margin: 40px 0px 20px;
+}
+
+#clockdiv{
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #00BF96;
+    display: inline-block;
+}
+
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+
+.smalltext{
+    padding-top: 5px;
+    font-size: 16px;
+}</style></head>
+<title>trollie</title>
+<body>
+    
+    <h1>Hello {{time}} !</h1>
+    
+    <p>per project zijn er taken maak ze op een slimme manier</p>
+
+    
+
+    <ul>
+        <tr><a href="/project/1">project 1</a></tr>
+        <tr><a href="/project/2">project 2</a></tr>
+        <tr><a href="/project/3">project 3</a></tr>
+        <tr><a href="/project/4">project 4</a></tr>
+        <tr><a href="/project/5">project 56</a></tr>
+        <tr><a href="/project/6">project 78</a></tr>
+    </ul>
+
+    <ul id="task">
+        {% for item in taskList %}
+        <li>{{item[1]}} {{item[2]}}</li>
+        <div style="background-color: aqua; color: white; padding: 20px;">
+            <form method="post" action="/project_task">
+                <!--    <button onclick="taskButton('{{item[0]}}')">Click me</button>-->
+                <input type="hidden" name="taskID" value="{{item[0]}}" />
+                <input type="submit" name="{{item[0]}}" value="click" />
+
+            </form>
+
+        </div>
+        {% endfor %}
+    </ul>
+    <h1>Countdown Clock</h1>
+    <div id="clockdiv">
+        <div>
+            <span class="days"></span>
+            <div class="smalltext">Days</div>
+        </div>
+        <div>
+            <span class="hours"></span>
+            <div class="smalltext">Hours</div>
+        </div>
+        <div>
+            <span class="minutes"></span>
+            <div class="smalltext">Minutes</div>
+        </div>
+        <div>
+            <span class="seconds"></span>
+            <div class="smalltext">Seconds</div>
+        </div>
+    </div>
+
+    <script>
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
+
+        function initializeClock(id, endtime) {
+            var clock = document.getElementById(id);
+            var daysSpan = clock.querySelector('.days');
+            var hoursSpan = clock.querySelector('.hours');
+            var minutesSpan = clock.querySelector('.minutes');
+            var secondsSpan = clock.querySelector('.seconds');
+
+            function updateClock() {
+                var t = getTimeRemaining(endtime);
+
+                daysSpan.innerHTML = t.days;
+                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                }
+            }
+            var timeinterval = setInterval(updateClock, 1000);
+            updateClock();
+            
+        }
+       // var timeLeft = {{time|safe}};
+        // window.alert(timeLeft);
+        var timeinSec = {{time|safe}};
+        var currentTime = Date.parse(new Date());
+        var deadline =  new Date(currentTime + timeinSec*1000);
+        initializeClock('clockdiv', deadline);
+    </script>
+
+
+</body>
