@@ -1,6 +1,5 @@
 from unittest import TestCase
-import Development
-from string import Template
+from Development import Development
 
 __author__ = 'floris-jan'
 
@@ -27,5 +26,5 @@ class TestDevelopment(TestCase):
     self.failUnlessEqual(Development().getDecryptedCode(code), result)
 
   def test_get(self):
-    dev = Development
+    pass
     # self.failUnless(isinstance(Development.get()) == isinstance(Template()))
