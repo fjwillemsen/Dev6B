@@ -1,10 +1,10 @@
+from Spar import Spar
 from flask import Flask, render_template, request
-from classes.spar_game import spar_game
 
 from classes.Development import Development
 from classes.Peercoaching import Peercoaching
-from classes.Spar import Spar
-import random
+from spar_game import spar_game
+
 
 class Account:
     def __init__(self,username, pw):

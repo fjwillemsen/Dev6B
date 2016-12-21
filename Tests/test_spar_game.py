@@ -1,5 +1,6 @@
 from unittest import TestCase
-from classes.spar_game import spar_game
+
+from spar_game import spar_game
 
 
 class TestSpar_game(TestCase):
