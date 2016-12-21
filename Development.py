@@ -4,13 +4,13 @@ from string import Template
 
 class Development:
 
-    def generateCode(max):
+    def generateCode(self, max):
         code = ""
         for i in range(0,max):
             code += str(random.randint(0,9))
-        return Development.encodeString(code)
+        return Development.encodeString(self, code)
 
-    def encodeString(string):
+    def encodeString(self, string):
         result = ""
         count = 0
         for i in string:
@@ -20,7 +20,7 @@ class Development:
             count += 1
         return result
 
-    def getDecryptedCode(code):
+    def getDecryptedCode(self, code):
         result = ""
         for i in code:
             if i != '-':
@@ -28,7 +28,7 @@ class Development:
                     result += str(int(i) + 4)
                 else:
                     result += str(int(i) - 3)
-        return Development.encodeString(result)
+        return Development.encodeString(self, result)
 
     def get(self):
         print("1")
