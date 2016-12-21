@@ -4,10 +4,6 @@ from string import Template
 
 class Development:
 
-    def __init__(self, level, duration):
-        self.sLevel = level
-        self.sDuration = duration
-
     def generateCode(max):
         code = ""
         for i in range(0,max):
