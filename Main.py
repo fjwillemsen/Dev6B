@@ -1,14 +1,11 @@
-from flask import Flask, render_template,request
 from ProjectTask import ProjectTask
-from Development import Development
-from Peercoaching import Peercoaching
 from english import English
 from Analyse import Analyse
 from Spar import Spar
 from flask import Flask, render_template, request
 
-from classes.Development import Development
-from classes.Peercoaching import Peercoaching
+from Development import Development
+from Peercoaching import Peercoaching
 from spar_game import spar_game
 
 
