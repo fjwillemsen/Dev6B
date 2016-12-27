@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Spar</title>
+
+    <style>
+        body {
+            background: url("https://upload.wikimedia.org/wikipedia/commons/b/b3/SPAR_aruhaz_bejarat.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            background-color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 5vh;
+            width: 100vw;
+        }
+
+        #result {
+            background-color: white;
+        }
+
+        #logo{min-width:400px;
+            min-height:80px;
+            max-width:400px;
+            max-height:80px;}
+    </style>
+</head>
+
+<script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
+
+<body>
+<div>
+    <h1>Result</h1>
+    <div id="result">
+        <p>Your score was: $score</p>
+        <a href="/spar">Retry?</a>
+        <br><br>
+        <p>Return to <a href="/">Home</a></p>
+    </div>
+</div>
+</body>
+</html>

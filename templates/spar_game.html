@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Spar</title>
+
+    <style>
+        body {
+            background: url("https://upload.wikimedia.org/wikipedia/commons/b/b3/SPAR_aruhaz_bejarat.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            background-color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 5vh;
+            width: 100vw;
+        }
+
+        #spar_form {
+            background-color: white;
+        }
+
+        #logo{min-width:400px;
+            min-height:80px;
+            max-width:400px;
+            max-height:80px;}
+    </style>
+
+</head>
+<body>
+<div>
+    <h1>You are buying $item</h1>
+    <span id="time"></span>
+    <form method="post" name="spar_form" id="spar_form" action="/spar-check" id="question_form">
+        <label>$q1</label><br>
+            <input type="radio" name="q1a" value="empty" hidden checked/>
+            <input type="radio" name="q1a" value=$q1a1> $q1a1 </input><br>
+            <input type="radio" name="q1a" value=$q1a2> $q1a2 </input><br>
+            <input type="radio" name="q1a" value=$q1a3> $q1a3 </input><br><br>
+        <label>$q2</label><br>
+            <input type="radio" name="q2a" value="empty" hidden checked/>
+            <input type="radio" name="q2a" value=$q2a1> $q2a1 </input><br>
+            <input type="radio" name="q2a" value=$q2a2> $q2a2 </input><br>
+            <input type="radio" name="q2a" value=$q2a3> $q2a3 </input><br><br>
+        <label>$q3</label><br>
+            <input type="radio" name="q3a" value="empty" hidden checked/>
+            <input type="radio" name="q3a" value=$q3a1> $q3a1 </input><br>
+            <input type="radio" name="q3a" value=$q3a2> $q3a2 </input><br>
+            <input type="radio" name="q3a" value=$q3a3> $q3a3 </input><br><br>
+        <label>$q4</label><br>
+            <input type="radio" name="q4a" value="empty" hidden checked/>
+            <input type="radio" name="q4a" value=$q4a1> $q4a1 </input><br>
+            <input type="radio" name="q4a" value=$q4a2> $q4a2 </input><br>
+            <input type="radio" name="q4a" value=$q4a3> $q4a3 </input><br><br>
+        <label>$q5</label><br>
+            <p><input type="text" placeholder="Example-France" name="q5a"/></p>
+
+        <input type="submit" value="Answer">
+
+    </form>
+</div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+
+    function time(duration,display) {
+        var timer = duration, min, sec;
+        setInterval(function () {
+            min = parseInt(timer / 60, 10);
+            sec = parseInt(timer % 60, 10);
+
+            min = min < 10 ? "0" + min : min;
+            sec = sec < 10 ? "0" + sec : sec;
+
+            display.textContent = min + ":" + sec;
+
+            if (--timer < 0) {
+                document.forms["spar_form"].submit();
+            }
+        }, 1000);
+    }
+    window.onload = function () {
+        var Min = $t * 60,
+            display = document.querySelector('#time');
+        time(Min, display);
+    }
+</script>

@@ -1,5 +1,5 @@
 from unittest import TestCase
-from classes.english import English
+from english import English
 
 class TestEnglish(TestCase):
     
