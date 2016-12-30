@@ -88,5 +88,6 @@ def sparcheck():
     return spar_game.check(spar_game(),useranswer)
 
 if __name__ == "__main__":
+    app.run()
     app.run(host='145.24.222.234', port=8080)
-    # app.run(debug=True)
+#     # app.run(debug=True)
