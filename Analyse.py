@@ -181,33 +181,48 @@ class Analyse:
         self.username = username
 
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
+        self.cooldowntilldia = datetime.now() - timedelta(days=10)
     def GetCurrentView(self,request):
         usern = self.username
-        self.requirementstatus = self.CheckTimerReq()
-        if request.method == 'POST':
-            first = request.form['First']
-            second = request.form['Second']
-            third = request.form['Third']
-            four = request.form['Fourth']
-            if self.Check(first,second,third,four,self.requirements):
-                # print("test")
-                self.cooldowntillreq = datetime.now() + timedelta(minutes=1)
 
+        if request.method == 'POST':
+            if request.form['type']=="req":
+                first = request.form['First']
+                second = request.form['Second']
+                third = request.form['Third']
+                four = request.form['Fourth']
+                if self.CheckReq(first, second, third, four, self.requirements):
+                    # print("test")
+                    self.cooldowntillreq = datetime.now() + timedelta(minutes=1)
+            if request.form['type'] == "dia":
+                dev = request.form['Dev']
+                log = request.form['Log']
+                phy = request.form['Phy']
+                pro = request.form['Pro']
+                use = request.form['Use']
+                if self.CheckDia(dev,log,phy,pro,use,self.diagrams):
+                    self.cooldowntilldia = datetime.now() + timedelta(minutes=1)
         #IF NOT A POST REQUEST; RELOAD THE PAGE AND GENERATE NEW REQUIREMENTS
         else:
             self.requirements = self.GenerateRequirements()
             self.diagrams = self.GenerateDiagrams()
 
-
-        return render_template("analyse.html", user=usern, requirements=self.requirements, datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus)
+        self.requirementstatus = self.CheckTimerReq()
+        self.diagramstatus = self.CheckTimerDia()
+        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus)
 
     def CheckTimerReq(self):
         returnvalue = False
         if self.cooldowntillreq > datetime.now():
             returnvalue = True
         return returnvalue
+    def CheckTimerDia(self):
+        returnvalue = False
+        if self.cooldowntilldia > datetime.now():
+            returnvalue = True
+        return returnvalue
 
-    def Check(self,first, second, third, fourth,requirements):
+    def CheckReq(self, first, second, third, fourth, requirements):
         one = False
         two = False
         three = False
@@ -226,6 +241,12 @@ class Analyse:
         else:
             returnval = False
         return returnval
+
+    def CheckDia(self, first, second, third, fourth,fifth, diagrams):
+        return True
+
+
+
     def GenerateRequirements(self):
         hallojumbo = Randomater()
         requirements = dict(
