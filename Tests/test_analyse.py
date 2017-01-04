@@ -34,9 +34,23 @@
 from unittest import TestCase
 from Analyse import *
 
-class TestAnalyse(TestCase):
-    testobject = Analyse("Bert")
 
+class TestAnalyse(TestCase):
+    def setUp(self):
+        self.testobject = Analyse("Bert")
+        self.diagrams = dict(
+            {1: GetDevelopDia(),
+             2: GetLogicalDia(),
+             3: GetPhysicalDia(),
+             4: GetProcesdia(),
+             5: GetUseCaseDia()})
     def test_GenerateRequirements(self):
         pass
+
+    def test_CheckDia(self):
+        if not self.testobject.CheckDia(1,2,3,4,5,self.diagrams):
+            self.fail()
+        else:
+            pass
+
 

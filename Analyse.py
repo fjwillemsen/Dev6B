@@ -26,10 +26,10 @@ def GetLogicalDia():
         textrand.append(0)
     textrand[0] = "State"
     textrand[1] = "Class"
-    return Diagram(View("Development"),textrand[random.randint(0, 1)])
+    return Diagram(View("Logical"),textrand[random.randint(0, 1)])
 
 def GetPhysicalDia():
-    return Diagram(View("Development"),"Deployment")
+    return Diagram(View("Physical"),"Deployment")
 
 def GetProcesdia():
     textrand = [2]
@@ -37,10 +37,10 @@ def GetProcesdia():
         textrand.append(0)
     textrand[0] = "Sequence"
     textrand[1] = "Flow"
-    return Diagram(View("Development"),textrand[random.randint(0, 1)])
+    return Diagram(View("Process"),textrand[random.randint(0, 1)])
 
 def GetUseCaseDia():
-    return Diagram(View("Development"),"Use Case")
+    return Diagram(View("Use Case"),"Use Case")
 
 class Priority:
     def __init__(self,must,should,could,would):
@@ -209,7 +209,7 @@ class Analyse:
 
         self.requirementstatus = self.CheckTimerReq()
         self.diagramstatus = self.CheckTimerDia()
-        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus)
+        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=getscore(usern))
 
     def CheckTimerReq(self):
         returnvalue = False
@@ -243,7 +243,30 @@ class Analyse:
         return returnval
 
     def CheckDia(self, first, second, third, fourth,fifth, diagrams):
-        return True
+        one = False
+        two = False
+        three = False
+        four = False
+        five = False
+        returnbool = False
+        if(int(first)>=1 and int(first) <=5):
+            if diagrams[int(first)].view.name == "Development":
+                one = True
+        if (int(second) >= 1 and int(second) <= 5):
+            if diagrams[int(second)].view.name == "Logical":
+                two = True
+        if (int(third) >= 1 and int(third) <= 5):
+            if diagrams[int(third)].view.name == "Physical":
+                three = True
+        if (int(fourth) >= 1 and int(fourth) <= 5):
+            if diagrams[int(fourth)].view.name == "Process":
+                four = True
+        if (int(fifth) >= 1 and int(fifth) <= 5):
+            if diagrams[int(fifth)].view.name == "Use Case":
+                five = True
+        if one and two and three and four and five:
+            returnbool = True
+        return returnbool
 
 
 
@@ -265,3 +288,6 @@ class Analyse:
              4:hallojumbo.getdiagram(),
              5:hallojumbo.getdiagram()})
         return Diagrams
+
+def getscore(username):
+    return 30
