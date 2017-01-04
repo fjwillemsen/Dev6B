@@ -22,10 +22,13 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Analyse.py" />
     <Compile Include="bin\wfastcgi.py" />
     <Compile Include="classes\Development.py" />
     <Compile Include="classes\english.py" />
     <Compile Include="classes\Peercoaching.py" />
+    <Compile Include="Development.py" />
+    <Compile Include="english.py" />
     <Compile Include="Main.py" />
     <Compile Include="obj\Debug\attach_server.py" />
     <Compile Include="obj\Debug\visualstudio_py_debugger.py" />
@@ -33,10 +36,14 @@
     <Compile Include="obj\Debug\visualstudio_py_util.py" />
     <Compile Include="obj\Debug\__init__.py" />
     <Compile Include="obj\Debug\__main__.py" />
+    <Compile Include="Peercoaching.py" />
     <Compile Include="Person.py" />
     <Compile Include="classes\ProjectTask.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ProjectTask.py" />
+    <Compile Include="Spar.py" />
+    <Compile Include="spar_game.py" />
     <Compile Include="Subject.py" />
     <Compile Include="Tests\testPerson.py" />
     <Compile Include="Tests\testSubject.py">
