@@ -26,13 +26,16 @@ class spar_game:
     correctOA=['south africa']
     oq = ['In which of the following countries does the Spar have the highest sales(in millions) -'
           ' France, Italy or South Africa']
-    oq1a=['South Africa']
-
+    oq1a = ['South Africa']
     quests = []
 
+    def __init__(self, q):
+        self.qID = q
 
-    def gen_question(self):
-        self.qID = random.sample(range(0,6),4)
+
+
+    # def gen_question(self):
+
         # self.qID = random.sample(range(0,4), 4)
         # ID = random.randint(0,4)
         # self.qID.append(ID)
@@ -107,21 +110,26 @@ class spar_game:
     def get(self,it):
         # self.gen_question(self)
         template = Template(render_template("spar_game.html"))
+        # self.gen_question()
+        self.set_item(it)
+        self.difficulty(it)
         return template.substitute(item=it,q1=self.q[self.qID[0]],q2=self.q[self.qID[1]],q3=self.q[self.qID[2]],q4=self.q[self.qID[3]],
                                    q5=self.oq[0],
-                                   q1a1=self.get_answer(self,self.qID[0],0),q1a2=self.get_answer(self,self.qID[0],1),q1a3=self.get_answer(self,self.qID[0],2),
-                                   q2a1=self.get_answer(self,self.qID[1],0),q2a2=self.get_answer(self,self.qID[1],1),q2a3=self.get_answer(self,self.qID[1],2),
-                                   q3a1=self.get_answer(self,self.qID[2],0),q3a2=self.get_answer(self,self.qID[2],1),q3a3=self.get_answer(self,self.qID[2],2),
-                                   q4a1=self.get_answer(self,self.qID[3],0),q4a2=self.get_answer(self,self.qID[3],1),q4a3=self.get_answer(self,self.qID[3],2),
+                                   q1a1=self.get_answer(self.qID[0],0),q1a2=self.get_answer(self.qID[0],1),q1a3=self.get_answer(self.qID[0],2),
+                                   q2a1=self.get_answer(self.qID[1],0),q2a2=self.get_answer(self.qID[1],1),q2a3=self.get_answer(self.qID[1],2),
+                                   q3a1=self.get_answer(self.qID[2],0),q3a2=self.get_answer(self.qID[2],1),q3a3=self.get_answer(self.qID[2],2),
+                                   q4a1=self.get_answer(self.qID[3],0),q4a2=self.get_answer(self.qID[3],1),q4a3=self.get_answer(self.qID[3],2),
                                    t=self.time)
 
     def check(self,ua):
         self.score = 0
         template = Template(render_template("spar_res.html"))
+
         for index in range(len(ua)-1):
+            print(index)
             if str(self.correctA[self.qID[index]]) == str(ua[index]):
-                self.incscore(self,50)
+                self.incscore(50)
         if self.correctOA[0] == ua[4]:
-            self.incscore(self,50)
-        self.score = self.score*self.difficulty(self,self.item)
+            self.incscore(50)
+        self.score = self.score*self.difficulty(self.item)
         return template.substitute(score=self.score)

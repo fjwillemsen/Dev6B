@@ -8,6 +8,7 @@ from Development import Development
 from Peercoaching import Peercoaching
 from spar_game import spar_game
 
+import random
 
 class Account:
     def __init__(self,username, pw):
@@ -16,6 +17,8 @@ class Account:
 
 app = Flask(__name__)
 task = ProjectTask()
+q = random.sample(range(0,6),4)
+sparG = spar_game(q)
 
 @app.route('/')
 def index():
@@ -70,23 +73,28 @@ def spar():
 
 @app.route('/spar-game', methods=['POST'])
 def sparg():
-    spar_game.gen_question(spar_game())
+
+    # spar_game.gen_question(spar_game())
     item = request.form['item']
-    spar_game.set_item(spar_game(),item)
-    spar_game.difficulty(spar_game(),item)
+    # spar_game.set_item(spar_game(),item)
+    # spar_game.difficulty(spar_game(),item)
     print(item)
-    return spar_game.get(spar_game(), item)
+    return sparG.get(item)
 
 @app.route('/spar-check', methods=['POST'])
 def sparcheck():
     useranswer = [request.form['q1a'],request.form['q2a'],request.form['q3a'],request.form['q4a'],str(request.form['q5a']).lower().strip()]
-    print(useranswer[4])
+    print('ua: ' + useranswer[0])
+    print('ua: ' + useranswer[1])
+    print('ua: ' + useranswer[2])
+    print('ua: ' + useranswer[3])
+    print('ua: ' + useranswer[4])
     # for index in range(len(useranswer)):
     #     print("Correct answer:" + str(spar_game.get_correctA(spar_game, index) + ". Input: " + useranswer[index]))
     #     if spar_game.get_correctA(spar_game,index) == useranswer[index]:
     #         spar_game.incscore(spar_game,50)
-    return spar_game.check(spar_game(),useranswer)
+    return sparG.check(useranswer)
 
 if __name__ == "__main__":
-    app.run(host='145.24.222.234', port=8080)
-    # app.run(debug=True)
+    # app.run(host='145.24.222.234', port=8080)
+    app.run(debug=True)
