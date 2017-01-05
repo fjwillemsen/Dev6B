@@ -62,7 +62,9 @@ def project1(project_id):
 def projectTask():
     taskID =request.form['taskID']
 
-    task.isCooldownOver(taskID)
+    if (task.isCooldownOver(taskID)):
+        return "missing call"
+
     return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')

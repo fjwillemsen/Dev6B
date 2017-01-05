@@ -57,8 +57,12 @@ class ProjectTask:
     def isCooldownOver(self,task_id):
         if (self.lastActionDate is None):
             self.updateListOftask(task_id)
+            return True
         elif ((datetime.now()-self.lastActionDate).total_seconds() >= self.cooldownSecOver):
             self.updateListOftask(task_id)
+            return True
+        else:
+            return False
 
 
     def getSecTimeLeftOnCounter(self):
