@@ -2,7 +2,7 @@
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-from database import database
+
 class View:
     def __init__(self,name):
         self.name = name
@@ -179,7 +179,7 @@ class Analyse:
     def __init__(self, username):
         self.requirements = self.GenerateRequirements()
         self.username = username
-        self.database = database(username)
+        # self.database = database(username)
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
     def GetCurrentView(self,request):
@@ -290,7 +290,8 @@ class Analyse:
              4:hallojumbo.getdiagram(),
              5:hallojumbo.getdiagram()})
         return Diagrams
-    def addpoints(self):
-        self.database.runquery(self.username)
-    def getscore(self):
-        return self.database.getamount()
+    # def addpoints(self):
+    #     self.database.runquery(self.username)
+    # def getscore(self):
+    #     return self.database.getamount()
+    #     return 0
