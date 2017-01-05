@@ -3,19 +3,24 @@ from english import English
 from Analyse import Analyse
 from Spar import Spar
 from flask import Flask, render_template, request
-
+import pymysql
 from Development import Development
 from Peercoaching import Peercoaching
 from spar_game import spar_game
 
+import random
 
 class Account:
     def __init__(self,username, pw):
         self._username = username
         self._pw =pw
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='/../static')
 task = ProjectTask()
+global connection
+global cursor
+q = random.sample(range(0,6),4)
+sparG = spar_game(q)
 
 @app.route('/')
 def index():
@@ -38,16 +43,11 @@ def analyse():
 
 @app.route('/development')
 def development():
-    return Development.get(Development())
+    return Development().get()
 
 @app.route('/development-answer', methods=['POST'])
 def developmentanswer():
-    print('Answer: ' + str(request.form.get('answer')))
-    print('Useranswer: ' + str(request.form.get('useranswer')))
-    if str(request.form.get('answer')) == str(request.form.get('useranswer')):
-        return "<p>Congratz!</p>"
-    else:
-        return "<p>Failure</p>"
+    return Development().answers(request.form)
 
 @app.route('/project/')
 def project():
@@ -71,25 +71,49 @@ def projectTask():
 def spar():
     return Spar.get(Spar())
 
+@app.route('/spar/Q2')
+def sparQ2():
+    return sparG.getQ2()
+
 @app.route('/spar-game', methods=['POST'])
 def sparg():
-    spar_game.gen_question(spar_game())
     item = request.form['item']
-    spar_game.set_item(spar_game(),item)
-    spar_game.difficulty(spar_game(),item)
     print(item)
-    return spar_game.get(spar_game(), item)
+    return sparG.get(item)
+
+@app.route('/spar-res')
+def sparres():
+    return sparG.getRes()
 
 @app.route('/spar-check', methods=['POST'])
 def sparcheck():
     useranswer = [request.form['q1a'],request.form['q2a'],request.form['q3a'],request.form['q4a'],str(request.form['q5a']).lower().strip()]
-    print(useranswer[4])
-    # for index in range(len(useranswer)):
-    #     print("Correct answer:" + str(spar_game.get_correctA(spar_game, index) + ". Input: " + useranswer[index]))
-    #     if spar_game.get_correctA(spar_game,index) == useranswer[index]:
-    #         spar_game.incscore(spar_game,50)
-    return spar_game.check(spar_game(),useranswer)
+    timer = request.form['timer']
+    return sparG.afterQ(useranswer,int(timer),True)
+
+@app.route('/spar/Q2-check', methods=['POST'])
+def sparq2check():
+    ua = request.form['qq'].lower().strip()
+    return sparG.checkQ2(ua)
+
+def changeScore(value, modifier):
+    if value is not None:
+        cursor.execute("UPDATE user SET score = '" + value + "'")
+    elif modifier is not None:
+        cursor.execute("UPDATE user SET score = score " + modifier)
 
 if __name__ == "__main__":
-#    app.run(host='145.24.222.234', port=8080)
-     app.run(debug=True)
+    global connection
+    global cursor
+
+    #Uncomment before pushing to run on server / Comment when testing locally
+    app.run(host='145.24.222.234', port=8080)
+    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+
+    #Uncomment when testing locally / Comment before pushing to run on server
+    #app.run(debug=True)
+    #connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
+
+
+    cursor = connection.cursor()
+
