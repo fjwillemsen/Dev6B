@@ -25,20 +25,20 @@ class Test_Test_ProjectTask(unittest.TestCase):
         self.assertEqual(1,self.project_task.getProjectNumber())
 
     def test_getProjectNumber_Some(self):
-        self.project_task.project1 = []
-        self.project_task.project2 = []
-        self.project_task.project3 = []
-        self.assertEqual(1,self.project_task.getProjectNumber())
+        self.project_task.listOfProjectTask[0] =[]
+        self.project_task.listOfProjectTask[1] =[]
+        self.project_task.listOfProjectTask[2] =[]
+        self.assertEqual(4,self.project_task.getProjectNumber())
 
     def test_getProjectNumber_All(self):
-        self.project_task.project1 = []
-        self.project_task.project2 = []
-        self.project_task.project3 = []
-        self.project_task.project4 = []
-        self.project_task.project56 = []
-        self.project_task.project78 = []
-        self.project_task.projectEND = []
-        self.assertEqual(1,self.project_task.getProjectNumber())
+        self.project_task.listOfProjectTask[0] =[]
+        self.project_task.listOfProjectTask[1] =[]
+        self.project_task.listOfProjectTask[2] =[]
+        self.project_task.listOfProjectTask[3] =[]
+        self.project_task.listOfProjectTask[4] =[]
+        self.project_task.listOfProjectTask[5] =[]
+        self.project_task.listOfProjectTask[6] =[]
+        self.assertEqual(7,self.project_task.getProjectNumber())
 
     def test_UpdateTaskList(self):
         self.project_task.updateListOftask("4-3")
