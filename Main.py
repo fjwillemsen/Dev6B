@@ -97,7 +97,7 @@ def changeScore(value, modifier):
     if value is not None:
         cursor.execute("UPDATE user SET score = '" + value + "'")
     elif modifier is not None:
-        cursor.execute("UPDATE user SET score = score + '" + modifier + "'")
+        cursor.execute("UPDATE user SET score = score " + modifier)
 
 if __name__ == "__main__":
     global connection
