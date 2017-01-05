@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/spar.js')}}"></script>
+    <title>Spar</title>
+
+    <style>
+        body {
+            background: url("https://upload.wikimedia.org/wikipedia/commons/b/b3/SPAR_aruhaz_bejarat.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            background-color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 5vh;
+            width: 100vw;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <h1>You still have $time seconds left</h1>
+    <p>You can continue and get double your points if you answer the next question correctly</p>
+    <p>If you fail to answer this question correctly however you will lost half your points</p>
+    <a href="/spar/Q2"><input type="button" value="Continue"></a>
+    <a href="/spar-res"><input type="button" value="Stop"></a>
+
+</div>
+
+
+</body>
+</html>
