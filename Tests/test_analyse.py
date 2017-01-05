@@ -44,13 +44,28 @@ class TestAnalyse(TestCase):
              3: GetPhysicalDia(),
              4: GetProcesdia(),
              5: GetUseCaseDia()})
-    def test_GenerateRequirements(self):
-        pass
+        self.requirement = dict(
+            {1: Requirement("Must", Priority(True, False, False, False), Status(False), 1),
+             2: Requirement("Should", Priority(False, True, False, False), Status(False), 2),
+             3: Requirement("Could", Priority(False, False, True, False), Status(False), 3),
+             4: Requirement("Would", Priority(False, False, False, True), Status(False), 4)})
 
     def test_CheckDia(self):
-        if not self.testobject.CheckDia(1,2,3,4,5,self.diagrams):
+        if not self.testobject.CheckDia(1, 2, 3, 4, 5, self.diagrams):
             self.fail()
         else:
             pass
+
+    def test_CheckReq(self):
+        if not self.testobject.CheckReq(1, 2, 3, 4, self.requirement):
+            self.fail()
+        else:
+            pass
+    def test_addpoints(self):
+        initial= self.testobject.database.getamount()
+        endvalue = initial + 5
+        self.testobject.database.runquery(self.testobject.username)
+        if not int(self.testobject.database.getamount())==endvalue:
+            self.fail()
 
 

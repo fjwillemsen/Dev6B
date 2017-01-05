@@ -2,7 +2,7 @@
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-
+from database import database
 class View:
     def __init__(self,name):
         self.name = name
@@ -179,7 +179,7 @@ class Analyse:
     def __init__(self, username):
         self.requirements = self.GenerateRequirements()
         self.username = username
-
+        self.database = database(username)
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
     def GetCurrentView(self,request):
@@ -192,7 +192,7 @@ class Analyse:
                 third = request.form['Third']
                 four = request.form['Fourth']
                 if self.CheckReq(first, second, third, four, self.requirements):
-                    # print("test")
+                    self.addpoints()
                     self.cooldowntillreq = datetime.now() + timedelta(minutes=1)
             if request.form['type'] == "dia":
                 dev = request.form['Dev']
@@ -201,6 +201,7 @@ class Analyse:
                 pro = request.form['Pro']
                 use = request.form['Use']
                 if self.CheckDia(dev,log,phy,pro,use,self.diagrams):
+                    self.addpoints()
                     self.cooldowntilldia = datetime.now() + timedelta(minutes=1)
         #IF NOT A POST REQUEST; RELOAD THE PAGE AND GENERATE NEW REQUIREMENTS
         else:
@@ -209,7 +210,7 @@ class Analyse:
 
         self.requirementstatus = self.CheckTimerReq()
         self.diagramstatus = self.CheckTimerDia()
-        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=getscore(usern))
+        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=self.database.getamount())
 
     def CheckTimerReq(self):
         returnvalue = False
@@ -228,13 +229,13 @@ class Analyse:
         three = False
         four = False
         for i,Requirement in iter(requirements.items()):
-            if Requirement.priority.must and str(Requirement.position) == first:
+            if Requirement.priority.must and str(Requirement.position) == str(first):
                 one = True
-            if Requirement.priority.should and str(Requirement.position) == second:
+            if Requirement.priority.should and str(Requirement.position) == str(second):
                 two = True
-            if Requirement.priority.could and str(Requirement.position) == third:
+            if Requirement.priority.could and str(Requirement.position) == str(third):
                 three = True
-            if Requirement.priority.would and str(Requirement.position) == fourth:
+            if Requirement.priority.would and str(Requirement.position) == str(fourth):
                 four = True
         if(one and two and three and four):
             returnval = True
@@ -270,6 +271,7 @@ class Analyse:
 
 
 
+
     def GenerateRequirements(self):
         hallojumbo = Randomater()
         requirements = dict(
@@ -288,6 +290,7 @@ class Analyse:
              4:hallojumbo.getdiagram(),
              5:hallojumbo.getdiagram()})
         return Diagrams
-
-def getscore(username):
-    return 30
+    def addpoints(self):
+        self.database.runquery(self.username)
+    def getscore(self):
+        return self.database.getamount()
