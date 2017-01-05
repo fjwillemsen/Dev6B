@@ -43,21 +43,13 @@ h1{
 }</style></head>
 <title>trollie</title>
 <body>
-    
-    <h1>Hello {{time}} !</h1>
+    <a href="/"><b>Home</b></a>
+    <h1>Dit is {{pName}} !</h1>
     
     <p>per project zijn er taken maak ze op een slimme manier</p>
 
-    
-
-    <ul>
-        <tr><a href="/project/1">project 1</a></tr>
-        <tr><a href="/project/2">project 2</a></tr>
-        <tr><a href="/project/3">project 3</a></tr>
-        <tr><a href="/project/4">project 4</a></tr>
-        <tr><a href="/project/5">project 56</a></tr>
-        <tr><a href="/project/6">project 78</a></tr>
-    </ul>
+    <p>progres op dit moment : {{progress}}</p>
+    <p>taak naam gevolgd door cooldown in secondes</p>
 
     <ul id="task">
         {% for item in taskList %}
@@ -73,6 +65,7 @@ h1{
         </div>
         {% endfor %}
     </ul>
+
     <h1>Countdown Clock</h1>
     <div id="clockdiv">
         <div>

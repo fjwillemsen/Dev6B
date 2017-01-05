@@ -2,11 +2,9 @@ from flask import Flask, render_template
 from string import Template
 import random
 
-
 class spar_game:
     count = 0
     score = 0
-
     time = 0
 
     item = ''
@@ -26,35 +24,15 @@ class spar_game:
     correctOA=['south africa']
     oq = ['In which of the following countries does the Spar have the highest sales(in millions) -'
           ' France, Italy or South Africa']
-    oq1a=['South Africa']
-
+    oq1a = ['South Africa']
     quests = []
+    timeinsec = 0
 
+    bonusQ = ['What was the Hungarian slogan spar used in 2000s']
+    bonusA = ['mindig spar!']
 
-    def gen_question(self):
-        self.qID = random.sample(range(0,6),4)
-        # self.qID = random.sample(range(0,4), 4)
-        # ID = random.randint(0,4)
-        # self.qID.append(ID)
-        # while len(self.qID) <= 4:
-        #     ID = random.randint(0,4)
-        #     for i in range(len(self.qID)):
-        #         if ID != self.qID[i]:
-        #             q = True
-        #         else:
-        #             q = False
-        #     if q:
-        #         self.qID.append(ID)
-        # print(str(self.qID))
-        # for i in range(len(self.qID)):
-        #     self.quests.append(self.q[i])
-        # self.quests.append(self.oq)
-        # print(str(self.quests))
-
-    # def get_quest(self,i):
-    #     return self.quests[i]
-
-
+    def __init__(self, q):
+        self.qID = q
 
     def get_correctA(self,u):
         if (u == 0):
@@ -96,6 +74,8 @@ class spar_game:
 
     def set_item(self,itm):
         self.item = itm
+
+    def get_item(self):
         return self.item
 
     def incscore(self,i):
@@ -105,23 +85,81 @@ class spar_game:
         return self.score
 
     def get(self,it):
-        # self.gen_question(self)
         template = Template(render_template("spar_game.html"))
+        self.beforeGet(it)
         return template.substitute(item=it,q1=self.q[self.qID[0]],q2=self.q[self.qID[1]],q3=self.q[self.qID[2]],q4=self.q[self.qID[3]],
                                    q5=self.oq[0],
-                                   q1a1=self.get_answer(self,self.qID[0],0),q1a2=self.get_answer(self,self.qID[0],1),q1a3=self.get_answer(self,self.qID[0],2),
-                                   q2a1=self.get_answer(self,self.qID[1],0),q2a2=self.get_answer(self,self.qID[1],1),q2a3=self.get_answer(self,self.qID[1],2),
-                                   q3a1=self.get_answer(self,self.qID[2],0),q3a2=self.get_answer(self,self.qID[2],1),q3a3=self.get_answer(self,self.qID[2],2),
-                                   q4a1=self.get_answer(self,self.qID[3],0),q4a2=self.get_answer(self,self.qID[3],1),q4a3=self.get_answer(self,self.qID[3],2),
+                                   q1a1=self.get_answer(self.qID[0],0),q1a2=self.get_answer(self.qID[0],1),q1a3=self.get_answer(self.qID[0],2),
+                                   q2a1=self.get_answer(self.qID[1],0),q2a2=self.get_answer(self.qID[1],1),q2a3=self.get_answer(self.qID[1],2),
+                                   q3a1=self.get_answer(self.qID[2],0),q3a2=self.get_answer(self.qID[2],1),q3a3=self.get_answer(self.qID[2],2),
+                                   q4a1=self.get_answer(self.qID[3],0),q4a2=self.get_answer(self.qID[3],1),q4a3=self.get_answer(self.qID[3],2),
                                    t=self.time)
+
+    def beforeGet(self,it):
+        self.set_item(it)
+        self.difficulty(it)
+
+    def getCont(self,time):
+        self.setTimeInSec(time)
+        temp = Template(render_template("spar_continue.html"))
+        return temp.substitute(time=self.timeinsec)
+
+    def setTimeInSec(self,time):
+        self.timeinsec = time
+        return self.timeinsec
+
+    def getQ2(self):
+        temp = Template(render_template("spar_q2.html"))
+        return temp.substitute(qq=self.bonusQ[0],t=self.timeinsec)
+
+    def checkQ2(self,ua):
+        template = Template(render_template("spar_res.html"))
+        self.calcScoreQ2(ua)
+        return template.substitute(score=self.score)
+
+    def calcScoreQ2(self,ua):
+        if ua == self.bonusA[0]:
+            self.score = self.score * 2
+        else:
+            self.score = self.score * 0.5
+        return self.score
 
     def check(self,ua):
         self.score = 0
         template = Template(render_template("spar_res.html"))
-        for index in range(len(ua)-1):
-            if str(self.correctA[self.qID[index]]) == str(ua[index]):
-                self.incscore(self,50)
-        if self.correctOA[0] == ua[4]:
-            self.incscore(self,50)
-        self.score = self.score*self.difficulty(self,self.item)
+        self.calcScore(ua)
         return template.substitute(score=self.score)
+
+    def calcScore(self,ua):
+        self.score = 0
+        for index in range(len(ua)-1):
+            print(index)
+            if str(self.correctA[self.qID[index]]) == str(ua[index]):
+                self.incscore(50)
+        if self.correctOA[0] == ua[4]:
+            self.incscore(50)
+        self.score = self.score*self.difficulty(self.item)
+        return self.score
+
+    def getRes(self):
+        template = Template(render_template("spar_res.html"))
+        return template.substitute(score=self.score)
+
+    def afterQ(self,ua,timer,ret):
+        self.calcScore(ua)
+        if self.score >= 250:
+            if timer >= 15:
+                if not ret:
+                    return self.setTimeInSec(timer)
+                else:
+                    return self.getCont(timer)
+            else:
+                if not ret:
+                    return self.calcScore(ua)
+                else:
+                    return self.check(ua)
+        else:
+            if not ret:
+                return self.calcScore(ua)
+            else:
+                return self.check(ua)

@@ -5,6 +5,7 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/spar.js')}}"></script>
     <title>Spar</title>
 
     <style>
@@ -41,7 +42,7 @@
 <div>
     <h1>You are buying $item</h1>
     <span id="time"></span>
-    <form method="post" name="spar_form" id="spar_form" action="/spar-check" id="question_form">
+    <form method="post" name="spar_form" id="spar_form" action="/spar-check" id="question_form" >
         <label>$q1</label><br>
             <input type="radio" name="q1a" value="empty" hidden checked/>
             <input type="radio" name="q1a" value=$q1a1> $q1a1 </input><br>
@@ -64,8 +65,9 @@
             <input type="radio" name="q4a" value=$q4a3> $q4a3 </input><br><br>
         <label>$q5</label><br>
             <p><input type="text" placeholder="Example-France" name="q5a"/></p>
-
-        <input type="submit" value="Answer">
+        <input type="hidden" name="timer" value="">
+        <input type="submit" id="button" value="Answer">
+{#        <input type="button" value="Answer" onclick="beforeSubmit()">#}
 
     </form>
 </div>
@@ -73,10 +75,27 @@
 
 </body>
 </html>
+{% block javascript %}
 <script type="text/javascript">
-
+{##}
+{#    function gettime() {#}
+{#        document.ajax({#}
+{#            url: 'spar/time',#}
+{#            dataType: 'json',#}
+{#            type: 'POST',#}
+{#            async:false,#}
+{#            success: function(response) {#}
+{#                console.log(response);#}
+{#            },#}
+{#            error: function(error) {#}
+{#                console.log(error);#}
+{#            }#}
+{#        });#}
+{#    }#}
+    var timed;
     function time(duration,display) {
         var timer = duration, min, sec;
+
         setInterval(function () {
             min = parseInt(timer / 60, 10);
             sec = parseInt(timer % 60, 10);
@@ -86,14 +105,45 @@
 
             display.textContent = min + ":" + sec;
 
+            timed = min*60+sec;
+
             if (--timer < 0) {
                 document.forms["spar_form"].submit();
             }
         }, 1000);
     }
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+jQuery("#button").click(function(){
+        document.spar_form.timer.value = timed;
+        jQuery("spar_form").submit();
+    });
+
+{#    beforeSubmit = function(){#}
+{#        alert(timed);#}
+{#        document.getElementById('timer').value = timed;#}
+{#        {% raw %}#}
+{#        jQuery("#spar_form").submit(); };#}
+{#        {% endraw %}#}
+
+{#    jQuery('#spar_form').submit(function() {#}
+{#        alert(timed);#}
+{#        document.getElementById('timer').value = timed;#}
+{#        return true;#}
+{#    });#}
+{##}
     window.onload = function () {
         var Min = $t * 60,
             display = document.querySelector('#time');
         time(Min, display);
-    }
+    };
 </script>
+{% endblock %}
