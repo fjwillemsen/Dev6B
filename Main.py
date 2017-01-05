@@ -51,18 +51,21 @@ def developmentanswer():
 
 @app.route('/project/')
 def project():
-    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+    #return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+    return project1(1)
 
 @app.route('/project/<int:project_id>')
 def project1(project_id):
-    return render_template("Projects.html",taskList=task.getListOfTask(project_id),time=task.getSecTimeLeftOnCounter())
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/project_task', methods=['POST'])
 def projectTask():
     taskID =request.form['taskID']
 
-    task.isCooldownOver(taskID)
-    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+    if (task.isCooldownOver(taskID)):
+        return "missing call"
+
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')
 def spar():
