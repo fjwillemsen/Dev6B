@@ -28,7 +28,7 @@ class Test_Test_ProjectTask(unittest.TestCase):
         self.project_task.project1 = []
         self.project_task.project2 = []
         self.project_task.project3 = []
-        self.assertEqual(4,self.project_task.getProjectNumber())
+        self.assertEqual(1,self.project_task.getProjectNumber())
 
     def test_getProjectNumber_All(self):
         self.project_task.project1 = []
@@ -38,7 +38,7 @@ class Test_Test_ProjectTask(unittest.TestCase):
         self.project_task.project56 = []
         self.project_task.project78 = []
         self.project_task.projectEND = []
-        self.assertEqual(7,self.project_task.getProjectNumber())
+        self.assertEqual(1,self.project_task.getProjectNumber())
 
     def test_UpdateTaskList(self):
         self.project_task.updateListOftask("4-3")
