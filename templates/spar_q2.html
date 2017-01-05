@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/spar.js')}}"></script>
+    <title>Spar</title>
+
+    <style>
+        body {
+            background: url("https://upload.wikimedia.org/wikipedia/commons/b/b3/SPAR_aruhaz_bejarat.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            background-color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 5vh;
+            width: 100vw;
+        }
+
+        #spar_form {
+            background-color: white;
+        }
+
+        #logo{min-width:400px;
+            min-height:80px;
+            max-width:400px;
+            max-height:80px;}
+    </style>
+
+</head>
+<body>
+<div>
+
+    <h1>Bonus question</h1>
+    <span id="time"></span>
+    <form method="post" name="spar_form" id="spar_form" action="/spar/Q2-check" id="question_form" >
+        <label>$qq (Case insensitive)</label><br>
+            <p><input type="text" placeholder="Example-Frissesség, minőség, árubőség!" name="qq"/></p>
+        <input type="hidden" name="timer" value="">
+        <input type="submit" id="button" value="Answer">
+
+    </form>
+</div>
+
+
+</body>
+</html>
+{% block javascript %}
+<script type="text/javascript">
+    var timed;
+    function time(duration,display) {
+        var timer = duration, sec;
+
+        setInterval(function () {
+            sec = parseInt(timer % 60, 10);
+            sec = sec < 10 ? "0" + sec : sec;
+
+            display.textContent = "00:" + sec;
+
+            timed = sec;
+
+            if (--timer < 0) {
+                document.forms["spar_form"].submit();
+            }
+        }, 1000);
+    }
+    jQuery("#button").click(function(){
+        document.spar_form.timer.value = timed;
+        jQuery("spar_form").submit();
+    });
+    window.onload = function () {
+        var Sec = $t,
+            display = document.querySelector('#time');
+        time(Sec, display);
+    };
+</script>
+{% endblock %}
