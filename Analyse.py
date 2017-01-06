@@ -3,6 +3,44 @@ from flask import render_template,request
 import random
 from datetime import datetime, timedelta
 
+class View:
+    def __init__(self,name):
+        self.name = name
+
+class Diagram:
+    def __init__(self, view, name):
+        self.view = view
+        self.name = name
+
+def GetDevelopDia():
+    textrand = [2]
+    for i in range(2):
+        textrand.append(0)
+    textrand[0] = "Component"
+    textrand[1] = "Package"
+    return Diagram(View("Development"),textrand[random.randint(0, 1)])
+
+def GetLogicalDia():
+    textrand = [2]
+    for i in range(2):
+        textrand.append(0)
+    textrand[0] = "State"
+    textrand[1] = "Class"
+    return Diagram(View("Logical"),textrand[random.randint(0, 1)])
+
+def GetPhysicalDia():
+    return Diagram(View("Physical"),"Deployment")
+
+def GetProcesdia():
+    textrand = [2]
+    for i in range(2):
+        textrand.append(0)
+    textrand[0] = "Sequence"
+    textrand[1] = "Flow"
+    return Diagram(View("Process"),textrand[random.randint(0, 1)])
+
+def GetUseCaseDia():
+    return Diagram(View("Use Case"),"Use Case")
 
 class Priority:
     def __init__(self,must,should,could,would):
@@ -62,7 +100,7 @@ def randomreq():
     textrand[10] = "Implement Design Patterns"
     return textrand[random.randint(0,10)]
 
-#This class keeps track of which priorities have been taken and returns one that hasn t been taken previously with getpriority
+#This class keeps track of which priorities have been taken and returns one that hasn t been taken previously with getpriority. Same for diagrams
 class Randomater:
     must = Priority(True, False, False, False)
     musttaken = False
@@ -72,6 +110,11 @@ class Randomater:
     couldtaken = False
     would = Priority(False, False, False, True)
     wouldtaken = False
+    devtaken = False
+    logtaken = False
+    phytaken = False
+    protaken = False
+    usetaken = False
     def getpriority(self):
         lucioooballl = random.randint(0,3)
         if( lucioooballl == 0):
@@ -98,56 +141,138 @@ class Randomater:
                 return self.could
             else:
                 return self.getpriority()
+    def getdiagram(self):
+        lucioooballl = random.randint(0, 4)
+        if (lucioooballl == 0):
+            if (not self.devtaken):
+                self.devtaken = True
+                return GetDevelopDia()
+            else:
+                return self.getdiagram()
+        if (lucioooballl == 1):
+            if (not self.logtaken):
+                self.logtaken = True
+                return GetLogicalDia()
+            else:
+                return self.getdiagram()
+        if (lucioooballl == 2):
+            if (not self.phytaken):
+                self.phytaken = True
+                return GetPhysicalDia()
+            else:
+                return self.getdiagram()
+        if (lucioooballl == 3):
+            if (not self.protaken):
+                self.protaken = True
+                return GetProcesdia()
+            else:
+                return self.getdiagram()
+        if (lucioooballl == 4):
+            if (not self.usetaken):
+                self.usetaken = True
+                return GetUseCaseDia()
+            else:
+                return self.getdiagram()
 
- #Actual Analyse Class
+#Actual Analyse Class
 class Analyse:
     def __init__(self, username):
         self.requirements = self.GenerateRequirements()
         self.username = username
-
-        self.cooldowntill = datetime.now() - timedelta(days=10)
+        # self.database = database(username)
+        self.cooldowntillreq = datetime.now() - timedelta(days=10)
+        self.cooldowntilldia = datetime.now() - timedelta(days=10)
     def GetCurrentView(self,request):
         usern = self.username
-        if self.cooldowntill > datetime.now():
-            return render_template("analysecompleted.html", user=usern, date=self.cooldowntill)
-        elif request.method == 'POST':
-            first = request.form['First']
-            second = request.form['Second']
-            third = request.form['Third']
-            four = request.form['Fourth']
-            if self.Check(first,second,third,four,self.requirements):
-                print("test")
-                self.cooldowntill = datetime.now() + timedelta(minutes=1)
-                return render_template("analysecompleted.html", user=usern, date=self.cooldowntill)
-            else:
-                print("test2")
-                return render_template("analyse.html", user=usern, requirements=self.requirements, completed = True)
+
+        if request.method == 'POST':
+            if request.form['type']=="req":
+                first = request.form['First']
+                second = request.form['Second']
+                third = request.form['Third']
+                four = request.form['Fourth']
+                if self.CheckReq(first, second, third, four, self.requirements):
+                    self.addpoints()
+                    self.cooldowntillreq = datetime.now() + timedelta(minutes=1)
+            if request.form['type'] == "dia":
+                dev = request.form['Dev']
+                log = request.form['Log']
+                phy = request.form['Phy']
+                pro = request.form['Pro']
+                use = request.form['Use']
+                if self.CheckDia(dev,log,phy,pro,use,self.diagrams):
+                    self.addpoints()
+                    self.cooldowntilldia = datetime.now() + timedelta(minutes=1)
         #IF NOT A POST REQUEST; RELOAD THE PAGE AND GENERATE NEW REQUIREMENTS
         else:
             self.requirements = self.GenerateRequirements()
-            return render_template("analyse.html", user=usern, requirements=self.requirements, completed=False)
+            self.diagrams = self.GenerateDiagrams()
 
-    def Check(self,first, second, third, fourth,requirements):
+        self.requirementstatus = self.CheckTimerReq()
+        self.diagramstatus = self.CheckTimerDia()
+        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=self.database.getamount())
+
+    def CheckTimerReq(self):
+        returnvalue = False
+        if self.cooldowntillreq > datetime.now():
+            returnvalue = True
+        return returnvalue
+    def CheckTimerDia(self):
+        returnvalue = False
+        if self.cooldowntilldia > datetime.now():
+            returnvalue = True
+        return returnvalue
+
+    def CheckReq(self, first, second, third, fourth, requirements):
         one = False
         two = False
         three = False
         four = False
         for i,Requirement in iter(requirements.items()):
-            if Requirement.priority.must and str(Requirement.position) == first:
+            if Requirement.priority.must and str(Requirement.position) == str(first):
                 one = True
-            if Requirement.priority.should and str(Requirement.position) == second:
+            if Requirement.priority.should and str(Requirement.position) == str(second):
                 two = True
-            if Requirement.priority.could and str(Requirement.position) == third:
+            if Requirement.priority.could and str(Requirement.position) == str(third):
                 three = True
-            if Requirement.priority.would and str(Requirement.position) == fourth:
+            if Requirement.priority.would and str(Requirement.position) == str(fourth):
                 four = True
         if(one and two and three and four):
             returnval = True
         else:
             returnval = False
         return returnval
-    def GenerateRequirements(self):
 
+    def CheckDia(self, first, second, third, fourth,fifth, diagrams):
+        one = False
+        two = False
+        three = False
+        four = False
+        five = False
+        returnbool = False
+        if(int(first)>=1 and int(first) <=5):
+            if diagrams[int(first)].view.name == "Development":
+                one = True
+        if (int(second) >= 1 and int(second) <= 5):
+            if diagrams[int(second)].view.name == "Logical":
+                two = True
+        if (int(third) >= 1 and int(third) <= 5):
+            if diagrams[int(third)].view.name == "Physical":
+                three = True
+        if (int(fourth) >= 1 and int(fourth) <= 5):
+            if diagrams[int(fourth)].view.name == "Process":
+                four = True
+        if (int(fifth) >= 1 and int(fifth) <= 5):
+            if diagrams[int(fifth)].view.name == "Use Case":
+                five = True
+        if one and two and three and four and five:
+            returnbool = True
+        return returnbool
+
+
+
+
+    def GenerateRequirements(self):
         hallojumbo = Randomater()
         requirements = dict(
             {1: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 1),
@@ -156,4 +281,17 @@ class Analyse:
              4: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 4)})
         return requirements
 
-
+    def GenerateDiagrams(self):
+        hallojumbo = Randomater()
+        Diagrams = dict(
+            {1:hallojumbo.getdiagram(),
+             2:hallojumbo.getdiagram(),
+             3:hallojumbo.getdiagram(),
+             4:hallojumbo.getdiagram(),
+             5:hallojumbo.getdiagram()})
+        return Diagrams
+    # def addpoints(self):
+    #     self.database.runquery(self.username)
+    # def getscore(self):
+    #     return self.database.getamount()
+    #     return 0
