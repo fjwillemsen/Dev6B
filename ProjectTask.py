@@ -77,6 +77,15 @@ class ProjectTask:
                     self.addRandomTimeToTask(projectTask)
                     self.setScore2Db(connection,cursor)
 
+    def updateListOftask_UNITTEST(self,task_id):
+        for projectTask in self.listOfProjectTask:
+            for task in projectTask:
+                if task[0] == task_id:
+                    self.cooldownSecOver = task[2]
+                    self.lastActionDate = datetime.now()
+                    projectTask.remove(task);
+                    self.addRandomTimeToTask(projectTask)
+
     def isCooldownOver(self,task_id,connection,cursor):
         if (self.lastActionDate is None):
             self.updateListOftask(task_id,connection,cursor)
