@@ -59,7 +59,7 @@ class Test_Test_ProjectTask(unittest.TestCase):
 
     def test_isCdOver_2ndIFFalse(self):
         self.project_task.lastActionDate = datetime.now()
-        self.project_task.cooldownSecOver = 20
+        self.project_task.cooldownSecOver = 2000
         self.project_task.updateListOftask_UNITTEST("2-3")
         self.assertEqual(6,len(self.project_task.project2))
 
