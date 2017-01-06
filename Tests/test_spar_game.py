@@ -64,7 +64,7 @@ class TestSpar_game(TestCase):
         sg3 = spar_game(self.q)
         i = 0
         j = 0
-        while j < 3:
+        while j <= 3:
             j = j + 1
             if j == 1:
                 item = 'pizza'
@@ -77,40 +77,50 @@ class TestSpar_game(TestCase):
                     i = i + 1
                     if i == 1:
                         time = 20
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South Africa']
-                        self.assertEqual(sg1.afterQ(ua,time,False), time, 'correct')  #score = 400
-                        sg1.calcScoreQ2(bA[0])                                          #score = 800
-                        self.assertEqual(sg1.getscore(),800, 'correct')
-                        sg1.calcScoreQ2(bA[1])                                          #score = 400
-                        self.assertEqual(sg1.getscore(), 400, 'correct')
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South africa']
+                        self.assertEqual(sg1.afterQ(ua,time,False), time, 'correct')  #score = 500
+                        sg1.calcScoreQ2(bA[0])                                          #score = 1000
+                        self.assertEqual(sg1.getscore(), 1000, 'correct')
+                        sg1.calcScoreQ2(bA[1])                                          #score = 500
+                        self.assertEqual(sg1.getscore(), 500, 'correct')
                     elif i == 2:
                         time = 20
                         ua = ['1932', 'Megaspar', 'a', 'a', 'a']
                         self.assertEqual(sg1.afterQ(ua, time, False), 200, 'correct')  # score = 200
+                        self.assertNotEqual(sg1.getscore(), 100, 'correct')
+                        self.assertEqual(sg1.getscore(), 200, 'correct')
+                        self.assertNotEqual(sg1.getscore(), 300, 'correct')
                     elif i == 3:
                         time = 20
                         ua = ['1932', 'Megaspar', 'Netherlands', 'a', 'a']
                         self.assertEqual(sg1.afterQ(ua, time, False), time, 'correct')  # score = 300
+                        self.assertNotEqual(sg1.getscore(), 200, 'correct')
+                        self.assertNotEqual(sg1.getscore(), 100, 'correct')
+                        self.assertEqual(sg1.getscore(), 300, 'correct')
                     elif i == 4:
                         time = 16
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
-                        self.assertEqual(sg1.afterQ(ua, time, False), time, 'correct')  # score = 400
-                        sg1.calcScoreQ2(bA[0])  # score = 800
-                        self.assertEqual(sg1.getscore(), 800, 'correct')
-                        sg1.calcScoreQ2(bA[1])  # score = 400
-                        self.assertEqual(sg1.getscore(), 400, 'correct')
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'south Africa']
+                        self.assertEqual(sg1.afterQ(ua, time, False), time, 'correct')  # score = 500
+                        sg1.calcScoreQ2(bA[0])  # score = 1000
+                        self.assertEqual(sg1.getscore(), 1000, 'correct')
+                        sg1.calcScoreQ2(bA[1])  # score = 500
+                        self.assertEqual(sg1.getscore(), 500, 'correct')
                     elif i == 5:
                         time = 15
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
-                        self.assertEqual(sg1.afterQ(ua, time, False), time, 'correct')  # score = 400
-                        sg1.calcScoreQ2(bA[0])  # score = 800
-                        self.assertEqual(sg1.getscore(), 800, 'correct')
-                        sg1.calcScoreQ2(bA[1])  # score = 400
-                        self.assertEqual(sg1.getscore(), 400, 'correct')
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'sOUth afrICa']
+                        self.assertEqual(sg1.afterQ(ua, time, False), time, 'correct')  # score = 500
+                        sg1.calcScoreQ2(bA[0])  # score = 1000
+                        self.assertEqual(sg1.getscore(), 1000, 'correct')
+                        sg1.calcScoreQ2(bA[1])  # score = 500
+                        self.assertEqual(sg1.getscore(), 500, 'correct')
                     elif i == 6:
                         time = 14
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
-                        self.assertEqual(sg1.afterQ(ua, time, False), 400, 'correct')  # score = 400
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South AfRIca']
+                        self.assertEqual(sg1.afterQ(ua, time, False), 500, 'correct')  # score = 500
+                        self.assertNotEqual(sg1.getscore(), 400, 'correct')
+                        self.assertEqual(sg1.getscore(), 500, 'correct')
+                        self.assertNotEqual(sg1.getscore(), 600, 'correct')
+                i = 0
             elif j == 2:
                 item = 'bread'
                 sg2.beforeGet(item)  # score = 0
@@ -121,37 +131,47 @@ class TestSpar_game(TestCase):
                     i = i + 1
                     if i == 1:
                         time = 20
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
-                        self.assertEqual(sg2.afterQ(ua,time, False), time, 'correct')  #score = 250
-                        sg2.calcScoreQ2(bA[0])  # score = 800
-                        self.assertEqual(sg2.getscore(), 800, 'correct')
-                        sg2.calcScoreQ2(bA[1])  # score = 400
-                        self.assertEqual(sg2.getscore(), 400, 'correct')
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South Africa']
+                        self.assertEqual(sg2.afterQ(ua, time, False), time, 'correct')  #score = 250
+                        sg2.calcScoreQ2(bA[0])  # score = 500
+                        self.assertEqual(sg2.getscore(), 500, 'correct')
+                        sg2.calcScoreQ2(bA[1])  # score = 250
+                        self.assertEqual(sg2.getscore(), 250, 'correct')
                     elif i == 2:
                         time = 20
                         ua = ['1932', 'Megaspar', '', '', '']
-                        self.assertEqual(sg2.afterQ(ua, time, False), 200, 'correct')  # score = 100
+                        self.assertEqual(sg2.afterQ(ua, time, False), 100, 'correct')  # score = 100
+                        self.assertNotEqual(sg2.getscore(), 50, 'correct')
+                        self.assertEqual(sg2.getscore(), 100, 'correct')
+                        self.assertNotEqual(sg2.getscore(), 150, 'correct')
                     elif i == 3:
                         time = 20
                         ua = ['1932', 'Megaspar', 'Netherlands', '', '']
-                        self.assertEqual(sg2.afterQ(ua, time, False), 300, 'correct')  # score = 150
+                        self.assertEqual(sg2.afterQ(ua, time, False), 150, 'correct')  # score = 150
+                        self.assertNotEqual(sg2.getscore(), 200, 'correct')
+                        self.assertEqual(sg2.getscore(), 150, 'correct')
+                        self.assertNotEqual(sg2.getscore(), 300, 'correct')
                     elif i == 4:
                         time = 16
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South Africa']
                         self.assertEqual(sg2.afterQ(ua,time, False), time, 'correct')  #score = 250
-                        sg2.calcScoreQ2(bA[0])  # score = 800
-                        self.assertEqual(sg2.getscore(), 800, 'correct')
-                        sg2.calcScoreQ2(bA[1])  # score = 400
-                        self.assertEqual(sg2.getscore(), 400, 'correct')
+                        sg2.calcScoreQ2(bA[0])  # score = 500
+                        self.assertEqual(sg2.getscore(), 500, 'correct')
+                        sg2.calcScoreQ2(bA[1])  # score = 250
+                        self.assertEqual(sg2.getscore(), 250, 'correct')
                     elif i == 5:
                         time = 15
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South africa']
                         self.assertEqual(sg2.afterQ(ua, time, False), time, 'correct')  # score = 250
                     elif i == 6:
                         time = 14
-                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', '']
-                        self.assertEqual(sg2.afterQ(ua, time, False), 500, 'correct')  # score = 250
-            elif j == 2:
+                        ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South Africa']
+                        self.assertEqual(sg2.afterQ(ua, time, False), 250, 'correct')  # score = 250
+                        self.assertNotEqual(sg2.getscore(), 200, 'correct')
+                        self.assertEqual(sg2.getscore(), 250, 'correct')
+                        self.assertNotEqual(sg2.getscore(), 300, 'correct')
+                i = 0
+            elif j == 3:
                 item = 'energy'
                 sg3.beforeGet(item)  # score = 0
                 self.assertEqual(sg3.get_item(), item, 'correct')  # score = 0
@@ -163,14 +183,23 @@ class TestSpar_game(TestCase):
                         time = 20
                         ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South Africa']
                         self.assertEqual(sg3.afterQ(ua,time, False), 125, 'correct')  #score = 125
+                        self.assertNotEqual(sg3.getscore(), 100, 'correct')
+                        self.assertEqual(sg3.getscore(), 125, 'correct')
+                        self.assertNotEqual(sg3.getscore(), 150, 'correct')
                     elif i == 2:
                         time = 20
                         ua = ['1932', 'Megaspar', '', '', '']
                         self.assertEqual(sg3.afterQ(ua, time, False), 50, 'correct')  # score = 50
+                        self.assertNotEqual(sg3.getscore(), 25, 'correct')
+                        self.assertEqual(sg3.getscore(), 50, 'correct')
+                        self.assertNotEqual(sg3.getscore(), 75, 'correct')
                     elif i == 3:
                         time = 20
                         ua = ['1932', 'Megaspar', 'Netherlands', '', '']
                         self.assertEqual(sg3.afterQ(ua, time, False), 75, 'correct')  # score = 75
+                        self.assertNotEqual(sg3.getscore(), 50, 'correct')
+                        self.assertEqual(sg3.getscore(), 75, 'correct')
+                        self.assertNotEqual(sg3.getscore(), 100, 'correct')
                     elif i == 4:
                         time = 16
                         ua = ['1932', 'Megaspar', 'Netherlands', '2004', 'South Africa']

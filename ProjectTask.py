@@ -10,7 +10,7 @@ class ProjectTask:
         self.project78 = [["78-1",'task1',5],["78-2",'task2',10],["78-3",'task3',10],["78-4",'task4',10],["78-5",'task5',10],["78-6",'task6',10],["78-7",'task7',10],["78-8",'task8',10],["78-9",'task9',10],["78-10",'task10',10]];
         self.projectEND = [["end",'veel wacht plezier',0]];
         self.listofProjectNames =["project 1","project 2","project 3","project 4","project 56","project 78","het einde"];
-        self.listOfProjectTask = (self.project1,self.project2,self.project3,self.project4,self.project56,self.project78,self.projectEND);
+        self.listOfProjectTask = [self.project1,self.project2,self.project3,self.project4,self.project56,self.project78,self.projectEND];
         self.lastActionDate = None;
         self.cooldownSecOver = None;
         self.listItemsPerProject = [len(self.project1),len(self.project2),len(self.project3),len(self.project4),len(self.project56),len(self.project78),len(self.projectEND)];
