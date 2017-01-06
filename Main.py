@@ -7,6 +7,8 @@ import pymysql
 from Development import Development
 from Peercoaching import Peercoaching
 from spar_game import spar_game
+from string import Template
+import database
 
 import random
 
@@ -22,9 +24,12 @@ global cursor
 q = random.sample(range(0,6),4)
 sparG = spar_game(q)
 
+db = database.database(None, 'localhost', 3306)
+
 @app.route('/')
 def index():
-    return render_template("index.html")
+    temp = Template(render_template("index.html"))
+    return temp.substitute(score = db.getScore())
 
 @app.route('/english',methods = ['POST', 'GET'])
 def english():

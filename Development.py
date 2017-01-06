@@ -13,7 +13,7 @@ class Development:
     ygennumberofsteps = 0
 
     global db
-    db = database.database(None, 'localhost', 8081)
+    db = database.database(None, 'localhost', 3306)
 
     def get(self):
         temp = Template(render_template("development.html"))
