@@ -100,25 +100,33 @@ def sparq2check():
     ua = request.form['qq'].lower().strip()
     return sparG.checkQ2(ua)
 
-def changeScore(value, modifier):
+def changeScore(value):
     if value is not None:
-        cursor.execute("UPDATE user SET score = '" + value + "'")
-    elif modifier is not None:
-        cursor.execute("UPDATE user SET score = score " + modifier)
+        cursor.execute("UPDATE user SET score = '" + value + "';")
+
+def changeDev(value):
+    if value is not None:
+        cursor.execute("UPDATE user SET development = '" + value + "';")
+
+def getScore(value):
+    if value is not None:
+        cursor.execute("SELECT score FROM user;")
+
+def getDev(value):
+    if value is not None:
+        cursor.execute("SELECT development FROM user;")
 
 if __name__ == "__main__":
     global connection
     global cursor
 
     #Uncomment before pushing to run on server / Comment when testing locally
-    app.run(host='145.24.222.234', port=8080)
-    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    #app.run(host='145.24.222.234', port=8080)
+    #connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
 
     #Uncomment when testing locally / Comment before pushing to run on server
-    # app.run(debug=True)
+    app.run(debug=True)
     # connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
-
-
-    cursor = connection.cursor()
-
-    # app.run(debug=True)
+    #
+    #
+    # cursor = connection.cursor()

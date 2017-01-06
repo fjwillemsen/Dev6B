@@ -1,7 +1,7 @@
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-from database import database
+from Database import Database
 # from Main import changeScore
 class View:
     def __init__(self,name):
@@ -181,7 +181,7 @@ class Analyse:
         self.username = username
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
-        self.databasedummy = database(username)
+        #self.databasedummy = database(username)
     def GetCurrentView(self,request):
         usern = self.username
         if request.method == 'POST':

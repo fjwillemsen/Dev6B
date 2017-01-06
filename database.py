@@ -1,15 +1,98 @@
+import pymysql
+
+class Database:
+
+    global connection, cursor, username, port, ip, user, password, db
+    connection = None
+    cursor = None
+    username = None
+    port = 3306
+    ip = 'localhost'
+    user = 'root'
+    password = '2cKF97'
+    db = 'CollegeCraft'
+
+    def __init__(self, pusername, pip, pport):
+        global username, ip, port, cursor, connection
+        if pusername is not None:
+            username = pusername
+        ip = pip
+        port = pport
+        connection = pymysql.connect(host=ip, port=port, user=user, passwd=password, db=db, autocommit=True)
+        cursor = connection.cursor()
+
+    def prepare(self, query):
+        if username is not None:
+            query = query + " WHERE username='" + username + "';"
+        else:
+            query = query + " WHERE username IS NOT NULL;"
+        return query
 
 
-class database:
-    def __init__(self,username):
-        self.amount = 30
-    def runquery(self,string):
-        self.amount += 5;
-    def getamount(self):
-        return self.amount
+    #   Setters
+
+    def setScore(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET score = '" + value + "'"))
+
+    def setDev(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET development=" + value))
+
+    def setEng(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET english = '" + value + "'"))
+
+    def setSpar(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET spar = '" + value + "'"))
+
+    def setAnalyse(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET analyse = '" + value + "'"))
+
+    def setProject(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET project = '" + value + "'"))
+
+    def setPeercoaching(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE user SET peercoaching = '" + value + "'"))
 
 
+    #   Getters
 
+    def getScore(self):
+        cursor.execute(self.prepare("SELECT score FROM user"))
+        return cursor.fetchone()[0]
 
+    def getDev(self):
+        cursor.execute(self.prepare("SELECT development FROM user"))
+        return cursor.fetchone()[0]
 
+    def getEng(self):
+        cursor.execute(self.prepare("SELECT english FROM user"))
+        return cursor.fetchone()[0]
 
+    def getSpar(self):
+        cursor.execute(self.prepare("SELECT spar FROM user"))
+        return cursor.fetchone()[0]
+
+    def getAnalyse(self):
+        cursor.execute(self.prepare("SELECT analyse FROM user"))
+        return cursor.fetchone()[0]
+
+    def getProject(self):
+        cursor.execute(self.prepare("SELECT project FROM user"))
+        return cursor.fetchone()[0]
+
+    def getPeercoaching(self):
+        cursor.execute(self.prepare("SELECT peercoaching FROM user"))
+        return cursor.fetchone()[0]
