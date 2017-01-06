@@ -45,30 +45,30 @@ class ProjectTask:
                 x = randint(2,9)
                 task[2] = task[2] + x
             
-    def setScore2Db(self,connection,cursor):
-        sql = "UPDATE user set project = project +1;"
-        try:
-            cursor.execute(sql)
-        except:
-            connection.rollback()
+    #def setScore2Db(self,connection,cursor):
+    #    sql = "UPDATE user set project = project +1;"
+    #    try:
+    #        cursor.execute(sql)
+    #    except:
+    #        connection.rollback()
 
-    def getScoreFromDb(self,connection,cursor):
-        sql = "SELECT project from user;"
-        res = None
-        try:
-            cursor.execute(sql)
-            res = cursor.fetchone()
-        except:
-            print("dit gaat niet werken")
+    #def getScoreFromDb(self,connection,cursor):
+    #    sql = "SELECT project from user;"
+    #    res = None
+    #    try:
+    #        cursor.execute(sql)
+    #        res = cursor.fetchone()
+    #    except:
+    #        print("dit gaat niet werken")
 
-        return res
+    #    return res
 
-    def resetScoreOnDb(self,connection,cursor):
-        sql = "UPDATE user set project = 0;"
-        try:
-            cursor.execute(sql)
-        except:
-            connection.rollback()
+    #def resetScoreOnDb(self,connection,cursor):
+    #    sql = "UPDATE user set project = 0;"
+    #    try:
+    #        cursor.execute(sql)
+    #    except:
+    #        connection.rollback()
 
     def updateListOftask(self,task_id,connection,cursor):
         for projectTask in self.listOfProjectTask:
