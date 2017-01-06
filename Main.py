@@ -54,8 +54,10 @@ def peeranl_answer():
     print('Answer: ' + str(request.form.get('answer')))
     print('Useranswer: ' + str(request.form.get('useranswer')))
     if str(request.form.get('answer')) == str(request.form.get('useranswer')):
+        db.setPeercoaching(db.getPeercoaching()+2)
         return "<p> WINNING! </p>"
     else:
+        db.setPeercoaching(db.getPeercoaching()-1)
         return "<p> LOSUR! </p>"
 
 
