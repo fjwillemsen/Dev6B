@@ -210,7 +210,7 @@ class Analyse:
 
         self.requirementstatus = self.CheckTimerReq()
         self.diagramstatus = self.CheckTimerDia()
-        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=self.database.getamount())
+        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=self.getscore())
 
     def CheckTimerReq(self):
         returnvalue = False
@@ -290,8 +290,9 @@ class Analyse:
              4:hallojumbo.getdiagram(),
              5:hallojumbo.getdiagram()})
         return Diagrams
-    # def addpoints(self):
+    def addpoints(self):
+        pass
     #     self.database.runquery(self.username)
-    # def getscore(self):
+    def getscore(self):
     #     return self.database.getamount()
-    #     return 0
+        return 0
