@@ -86,8 +86,8 @@ class Development:
             db.setDev(newscore)
 
         if len(correct) < 1:
-            return temp.substitute(text = "You didn't pass a single test. You failed us.")
+            return temp.substitute(text = "You didn't pass a single test. You failed us.", delay = 360)
         if len(correct) < 3:
-            return temp.substitute(text = "Looks like you didn't pass all tests. These are the ones you did pass: " + ", ".join(map(str, correct)))
+            return temp.substitute(text = "Looks like you didn't pass all tests. These are the ones you did pass: " + ", ".join(map(str, correct)), delay = 120)
         if len(correct) > 2:
-            return temp.substitute(text = "Congratulations, you passed every test!")
+            return temp.substitute(text = "Congratulations, you passed every test!", delay = 0)
