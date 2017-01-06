@@ -121,4 +121,3 @@ if __name__ == "__main__":
 
 
     cursor = connection.cursor()
-    # app.run(debug=True)
