@@ -65,7 +65,7 @@ class TestAnalyse(TestCase):
         initial= self.testobject.getscore()
         endvalue = initial + 5
         self.testobject.addpoints()
-        if not int(self.testobject.testobject.getscore())==endvalue:
+        if not int(self.testobject.getscore())==endvalue:
             self.fail()
 
 
