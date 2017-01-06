@@ -4,7 +4,7 @@ from Person import Person
 
 class Peercoaching:
     global db
-    db = database.database(None, 'localhost', 3306)
+    #db = database.database(None, 'localhost', 3306)
 
     def _init__ (self):
         self.Exp = Person.pWerkExp
