@@ -105,6 +105,17 @@ def changeScore(value, modifier):
     elif modifier is not None:
         cursor.execute("UPDATE user SET score = score " + modifier)
 
+@app.route('/score')
+def getScore():
+    sql = "SELECT project from user;"
+    try:
+        cursor.execute(sql)
+        res = cursor.fetchone()
+    except:
+        print("dit gaat niet werken")
+
+    return res
+
 if __name__ == "__main__":
     global connection
     global cursor
