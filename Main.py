@@ -36,10 +36,10 @@ def peercoaching():
     return Peercoaching.get(Peercoaching())
 
 
-analypage = Analyse("USERNAME")
+analypage = Analyse("USERNAME",pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft'))
 @app.route('/analyse',methods=['GET', 'POST'])
 def analyse():
-    return analypage.GetCurrentView(request, connection)
+    return analypage.GetCurrentView(request)
 
 @app.route('/development')
 def development():
@@ -115,8 +115,8 @@ if __name__ == "__main__":
     connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
 
     #Uncomment when testing locally / Comment before pushing to run on server
-    #app.run(debug=True)
-    #connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
+    # app.run(debug=True)
+    # connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
 
 
     cursor = connection.cursor()

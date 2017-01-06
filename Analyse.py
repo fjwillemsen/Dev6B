@@ -176,15 +176,14 @@ class Randomater:
 
 #Actual Analyse Class
 class Analyse:
-    def __init__(self, username):
+    def __init__(self, username, connection):
         self.requirements = self.GenerateRequirements()
         self.username = username
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
-
-    def GetCurrentView(self,request, connection):
-        usern = self.username
         self.connection = connection
+    def GetCurrentView(self,request):
+        usern = self.username
         if request.method == 'POST':
             if request.form['type']=="req":
                 first = request.form['First']
