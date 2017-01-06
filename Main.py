@@ -98,6 +98,8 @@ def sparq2check():
 def changeScore(value, modifier):
     global connection
     global cursor
+    connection = pymysql.connect(host='127.0.0.1', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    cursor = connection.cursor()
     if value is not None:
         cursor.execute("UPDATE user SET score = '" + value + "' where username = player1;")
         connection.commit()
@@ -118,5 +120,5 @@ if __name__ == "__main__":
 
 
     cursor = connection.cursor()
-    changeScore(5,None)
+changeScore(5,None)
 
