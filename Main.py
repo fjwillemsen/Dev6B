@@ -58,7 +58,7 @@ def project():
 def project1(project_id):
     global connection
     global cursor
-    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getScoreFromDb(connection,cursor),pName=task.getProjectName(task.getProjectNumber()))
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/project_task', methods=['POST'])
 def projectTask():
@@ -68,7 +68,7 @@ def projectTask():
 
     task.isCooldownOver(taskID,connection,cursor)
 
-    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getScoreFromDb(connection,cursor),pName=task.getProjectName(task.getProjectNumber()))
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')
 def spar():
