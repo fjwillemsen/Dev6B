@@ -58,7 +58,7 @@ def project():
 def project1(project_id):
     global connection
     global cursor
-    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),pName=task.getProjectName(task.getProjectNumber()))
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/project_task', methods=['POST'])
 def projectTask():
@@ -67,8 +67,8 @@ def projectTask():
     taskID =request.form['taskID']
 
     task.isCooldownOver(taskID,connection,cursor)
-    #progress=task.getScoreFromDb(connection,cursor),
-    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),pName=task.getProjectName(task.getProjectNumber()))
+
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getScoreFromDb(connection,cursor),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')
 def spar():
@@ -111,14 +111,13 @@ if __name__ == "__main__":
 
     #Uncomment before pushing to run on server / Comment when testing locally
     app.run(host='145.24.222.234', port=8080)
-    
+    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
 
     #Uncomment when testing locally / Comment before pushing to run on server
     #app.run(debug=True)
     #connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
 
-connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
-cursor = connection.cursor()
-    
-    
-task.isCooldownOver(1,connection,cursor)
+
+    cursor = connection.cursor()
+
+changeScore(5,None)
