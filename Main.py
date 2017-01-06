@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     #Uncomment before pushing to run on server / Comment when testing locally
     app.run(host='145.24.222.234', port=8080)
-    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    connection = pymysql.connect(host='127.0.0.1', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
 
     #Uncomment when testing locally / Comment before pushing to run on server
     #app.run(debug=True)
