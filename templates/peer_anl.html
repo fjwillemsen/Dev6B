@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis tutoring</title>
+
+    <style>
+        body {
+            background-color: White;
+            font-family: Arial;
+            font-weight: bold;
+            color: rgb(0,255,0);
+            text-transform: capitalize;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #useranswer {
+            background-color: #808080;
+            display: inline-block;
+            color: rgb(0,255,0);
+        }
+
+        .quest {
+            display: inline-block;
+            background-color: rgb(255,255,255);
+            padding: 1em;
+            border-style: dotted;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+    <h2>Analysis tutoring</h2>
+
+    <hr>
+    </div>
+    <div>
+
+    <p class="quest">You will be tested on your Analysis knowledge.<br>
+    &emsp;Take your time to think, as the questions are vital to your chance of getting a certificate.<br><br>
+    &emsp;&emsp;If(you are right):<br> <br>
+            You will pass.<br>
+            Celebrate!<br><br>
+    &emsp;else:<br>
+    &emsp;&emsp;You will fail.<br>
+        Cry. Alot.
+
+    <p>Quick, answer the following question! :</p>
+    <p class="quest">${quest}</p>
+    </p>
+    <form method="post" action="/peeranl_answer" id="form">
+        <input type="text" id="answer" name="answer" style="display: none" value="${answerquest}">
+        Answer:<br><input type="text" id="useranswer" name="useranswer" required autofocus><br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+    <hr>
+
+</body>
+</html>
