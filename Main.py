@@ -60,10 +60,11 @@ def project1(project_id):
 
 @app.route('/project_task', methods=['POST'])
 def projectTask():
+    global connection
+    global cursor
     taskID =request.form['taskID']
 
-    if (task.isCooldownOver(taskID)):
-        return "missing call"
+    task.isCooldownOver(taskID,connection,cursor)
 
     return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 

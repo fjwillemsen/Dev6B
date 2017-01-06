@@ -1,5 +1,6 @@
 from datetime import datetime
 from random import randint
+import pymysql
 class ProjectTask:
     def __init__(self):
         self.project1 = [["1-1",'task1',5],["1-2",'task2',10],["1-3",'task3',10],["1-4",'task4',10],["1-5",'task5',10],["1-6",'task6',10]];
@@ -43,9 +44,30 @@ class ProjectTask:
             for task in project:
                 x = randint(2,9)
                 task[2] = task[2] + x
+            
+    def setScore2Db(self,connection,cursor):
+        sql = "UPDATE user set project = project +1;"
+        try:
+            cursor.execute(sql)
+        except:
+            connection.rollback()
 
+    def getScoreFromDb(self,connection,cursor):
+        sql = "SELECT project from user;"
+        try:
+            cursor.execute(sql)
+            res = cursor.fetchone()
+        except:
+            print("dit gaat niet werken")
 
-    def updateListOftask(self,task_id):
+    def resetScoreOnDb(self,connection,cursor):
+        sql = "UPDATE user set project = 0;"
+        try:
+            cursor.execute(sql)
+        except:
+            connection.rollback()
+
+    def updateListOftask(self,task_id,connection,cursor):
         for projectTask in self.listOfProjectTask:
             for task in projectTask:
                 if task[0] == task_id:
@@ -53,16 +75,13 @@ class ProjectTask:
                     self.lastActionDate = datetime.now()
                     projectTask.remove(task);
                     self.addRandomTimeToTask(projectTask)
+                    self.setScore2Db(connection,cursor)
 
-    def isCooldownOver(self,task_id):
+    def isCooldownOver(self,task_id,connection,cursor):
         if (self.lastActionDate is None):
-            self.updateListOftask(task_id)
-            return True
+            self.updateListOftask(task_id,connection,cursor)
         elif ((datetime.now()-self.lastActionDate).total_seconds() >= self.cooldownSecOver):
-            self.updateListOftask(task_id)
-            return True
-        else:
-            return False
+            self.updateListOftask(task_id,connection,cursor)
 
 
     def getSecTimeLeftOnCounter(self):
