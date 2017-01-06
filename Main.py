@@ -104,7 +104,7 @@ def changeScore(value, modifier):
         cursor.execute("UPDATE user SET score = '" + value + "'")
     elif modifier is not None:
         cursor.execute("UPDATE user SET score = score " + modifier)
-task.isCooldownOver(1,connection,cursor)
+
 if __name__ == "__main__":
     global connection
     global cursor
@@ -120,4 +120,4 @@ if __name__ == "__main__":
 
     cursor = connection.cursor()
     
-
+task.isCooldownOver(1,connection,cursor)
