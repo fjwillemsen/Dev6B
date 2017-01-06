@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 from string import Template
 
 class Peer_dev:
+
     def generateCode(self, max):
         code = ""
         for i in range(0,max):

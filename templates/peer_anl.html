@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <title>Analysis tutoring</title>
 
+    <script>
+    var count=60;
+    var counter=setInterval(timer, 1000);
+
+    function timer() {
+      count=count-1;
+      if (count <= 0) {
+         clearInterval(counter);
+         document.getElementById("form").submit();
+         return;
+      }
+
+      document.getElementById("timer").innerHTML = count + " Seconds remaining.";
+        }
+    </script>
+
     <style>
         body {
             background-color: White;
@@ -39,7 +55,7 @@
 <body>
     <div>
     <h2>Analysis tutoring</h2>
-
+    <p id="timer">60 Seconds remaining</p><br>
     <hr>
     </div>
     <div>
