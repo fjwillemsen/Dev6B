@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from string import Template
 import random
-from database import database
+import database
 
 
 class spar_game:
