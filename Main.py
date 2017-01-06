@@ -46,7 +46,7 @@ def peercoaching():
 analypage = Analyse("USERNAME")
 @app.route('/analyse',methods=['GET', 'POST'])
 def analyse():
-    return Analyse.GetCurrentView(analypage, request)
+    return analypage.GetCurrentView(request)
 
 @app.route('/development')
 def development():
@@ -69,8 +69,7 @@ def project1(project_id):
 def projectTask():
     taskID =request.form['taskID']
 
-    if (task.isCooldownOver(taskID)):
-        return "missing call"
+    task.isCooldownOver(taskID)
 
     return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
@@ -96,6 +95,11 @@ def sparres():
 def sparcheck():
     useranswer = [request.form['q1a'],request.form['q2a'],request.form['q3a'],request.form['q4a'],str(request.form['q5a']).lower().strip()]
     timer = request.form['timer']
+    print("ua: " + useranswer[0])
+    print("ua: " + useranswer[1])
+    print("ua: " + useranswer[2])
+    print("ua: " + useranswer[3])
+    print("ua: " + useranswer[4])
     return sparG.afterQ(useranswer,int(timer),True)
 
 @app.route('/spar/Q2-check', methods=['POST'])
@@ -103,11 +107,21 @@ def sparq2check():
     ua = request.form['qq'].lower().strip()
     return sparG.checkQ2(ua)
 
-def changeScore(value, modifier):
+def changeScore(value):
     if value is not None:
-        cursor.execute("UPDATE user SET score = '" + value + "'")
-    elif modifier is not None:
-        cursor.execute("UPDATE user SET score = score " + modifier)
+        cursor.execute("UPDATE user SET score = '" + value + "';")
+
+def changeDev(value):
+    if value is not None:
+        cursor.execute("UPDATE user SET development = '" + value + "';")
+
+def getScore(value):
+    if value is not None:
+        cursor.execute("SELECT score FROM user;")
+
+def getDev(value):
+    if value is not None:
+        cursor.execute("SELECT development FROM user;")
 
 # def setGlobalScore():
 #     cursor.execute("UPDATE user SET score = '" + "english+spar+dev+anl etc" + "'")
@@ -118,13 +132,12 @@ if __name__ == "__main__":
     global cursor
 
     #Uncomment before pushing to run on server / Comment when testing locally
-    # app.run(host='145.24.222.234', port=8080)
-    # connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    #app.run(host='145.24.222.234', port=8080)
+    #connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
 
     #Uncomment when testing locally / Comment before pushing to run on server
     app.run(debug=True)
-    connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
-
-    cursor = connection.cursor()
-
-
+    # connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
+    #
+    #
+    # cursor = connection.cursor()

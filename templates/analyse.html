@@ -39,30 +39,57 @@
         }
     </style>
 </head>
+<span>Current score: {{ score }}</span>
 <p style="font-size: 50px;" ><span>{{ user }}, Please arange the following requirements according to MoSCoW priority:</span></p>
 
 
 <table>
 
+
+
+</table>
+{% if not requirementscompleted %}
     {% for key, Requirement in requirements.items() %}
             <div>({{key}}) :{{Requirement.text  }} : ({{Requirement.priority.text  }}) </div>
       {% endfor %}
+     {% if attempt %}
+         <span>You ve input a wrong sequence of Priorioties!
+         Please fill in the input boxes with the appropiate value:</span>
+    {% else %}
+        <span>Please fill in the input boxes with the appropiate value:</span>
+    {% endif %}
+        <form action="/analyse" method="post"><span>
+        <input name="type" style="display:none;" value="req">
+        First:<input name="First" value="0">
+        Second:<input name="Second" value="0">
+        Third:<input name="Third" value="0">
+        Last:<input name="Fourth" value="0">
+        </span><button id="requirements">Submit!</button>
+{% else %}
+        <p style="font-size: 50px;" ><span>{{ user }}, you have succesfully completed this task!</span></p>
+        <span>You may redo this assignment after ({{datereq  }})!</span>
+{% endif %}
+
+{% if not diagramscompleted %}
+</form>
+<p style="font-size: 50px;" ><span>{{ user }}, Please arrange the following diagrams at their appropriate architectural view model:</span></p>
+<table>
+
+    {% for key, Diagram in diagrams.items() %}
+            <div>({{key}}) :{{Diagram.name  }} Diagram </div>
+      {% endfor %}
 
 </table>
-
-{% if completed %}
-     <span>You ve input a wrong sequence of Priorioties!
-         Please fill in the input boxes with the appropiate value:</span>
-  {% else %}
-        <span>Please fill in the input boxes with the appropiate value:</span>
- {% endif %}
 <form action="/analyse" method="post"><span>
-    First:<input name="First" value="0">
-    Second:<input name="Second" value="0">
-    Third:<input name="Third" value="0">
-    Last:<input name="Fourth" value="0">
-    <button>Submit!</button>
+    <input name="type" style="display:none;" value="dia">
+    Development View:<input name="Dev" value="0">
+    Logical View:<input name="Log" value="0">
+    Phyisical View:<input name="Phy" value="0">
+    Process View:<input name="Pro" value="0">
+    Use Case View:<input name="Use" value="0">
+    <button id="diagrams">Submit!</button>
 </span></form>
-
-
+{% else %}
+        <p style="font-size: 50px;" ><span>{{ user }}, you have succesfully completed this task!</span></p>
+        <span>You may redo this assignment after ({{datedia  }})!</span>{% endif %}
 </html>

@@ -118,7 +118,7 @@ class spar_game:
         return template.substitute(score=self.score)
 
     def calcScoreQ2(self,ua):
-        if ua == self.bonusA[0]:
+        if ua.lower() == self.bonusA[0]:
             self.score = self.score * 2
         else:
             self.score = self.score * 0.5
@@ -136,7 +136,7 @@ class spar_game:
             print(index)
             if str(self.correctA[self.qID[index]]) == str(ua[index]):
                 self.incscore(50)
-        if self.correctOA[0] == ua[4]:
+        if self.correctOA[0] == ua[4].lower():
             self.incscore(50)
         self.score = self.score*self.difficulty(self.item)
         return self.score

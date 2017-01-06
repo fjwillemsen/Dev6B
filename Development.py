@@ -1,7 +1,7 @@
 import random as r
 from flask import Flask, render_template, request
 from string import Template
-
+import database
 
 class Development:
 
@@ -12,6 +12,9 @@ class Development:
     xgennumberofsteps = 0
     ygennumberofsteps = 0
 
+    global db
+    db = database.database(None, '127.0.0.1', 3306)
+
     def get(self):
         temp = Template(render_template("development.html"))
         code = self.generateCode(12)
@@ -19,7 +22,7 @@ class Development:
         self.generateLocation()
         print(answer)
         print(self.xgendestination, ", ", self.ygendestination)
-        return temp.substitute(numbercode=code, answercode=answer,
+        return temp.substitute(devscore = db.getDev(), numbercode=code, answercode=answer,
                                xsize = self.xgensize, ysize = self.ygensize, xnumberofsteps = self.xgennumberofsteps, ynumberofsteps = self.ygennumberofsteps, xdestination = self.xgendestination, ydestination = self.ygendestination)
 
     # Assignment 1
@@ -61,20 +64,27 @@ class Development:
     #Answer
     def answers(self, form):
         correct = []
-        if form.get('answer1') == form.get('useranswer1'):
-            correct.append(1)
-        if form.get('answer2x') == form.get('useranswer2x') and form.get('answer2y') == form.get('useranswer2y'):
-            correct.append(2)
-        if  form.get('answer3.1') == form.get('useranswer3.1') and \
-            form.get('answer3.2') == form.get('useranswer3.2') and \
-            form.get('answer3.3') == form.get('useranswer3.3') and \
-            form.get('answer3.4') == form.get('useranswer3.4') and \
-            form.get('answer3.5') == form.get('useranswer3.5') and \
-            form.get('answer3.6') == form.get('useranswer3.6') and \
-            form.get('answer3.7') == form.get('useranswer3.7'):
-            correct.append(3)
+        if form is not None:
+            if form.get('answer1') == form.get('useranswer1'):
+                correct.append(1)
+            if form.get('answer2x') == form.get('useranswer2x') and form.get('answer2y') == form.get('useranswer2y'):
+                correct.append(2)
+            if  form.get('answer3.1') == form.get('useranswer3.1') and \
+                form.get('answer3.2') == form.get('useranswer3.2') and \
+                form.get('answer3.3') == form.get('useranswer3.3') and \
+                form.get('answer3.4') == form.get('useranswer3.4') and \
+                form.get('answer3.5') == form.get('useranswer3.5') and \
+                form.get('answer3.6') == form.get('useranswer3.6') and \
+                form.get('answer3.7') == form.get('useranswer3.7'):
+                correct.append(3)
+        return self.checkCorrect(correct)
 
+    def checkCorrect(self, correct):
         temp = Template(render_template("development-answers.html"))
+        newscore = len(correct) * 33 + 1
+        if newscore > int(db.getDev()):
+            db.setDev(newscore)
+
         if len(correct) < 1:
             return temp.substitute(text = "You didn't pass a single test. You failed us.")
         if len(correct) < 3:
