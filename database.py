@@ -7,7 +7,7 @@ class database:
     cursor = None
     username = None
     port = 3306
-    ip = 'localhost'
+    ip = '127.0.0.1'
     user = 'root'
     password = '2cKF97'
     db = 'CollegeCraft'
