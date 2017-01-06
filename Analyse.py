@@ -269,9 +269,6 @@ class Analyse:
             returnbool = True
         return returnbool
 
-
-
-
     def GenerateRequirements(self):
         hallojumbo = Randomater()
         requirements = dict(
@@ -280,7 +277,6 @@ class Analyse:
              3: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 3),
              4: Requirement(randomreq(), hallojumbo.getpriority(), Status(False), 4)})
         return requirements
-
     def GenerateDiagrams(self):
         hallojumbo = Randomater()
         Diagrams = dict(
@@ -295,7 +291,7 @@ class Analyse:
         cursor.execute("UPDATE user SET score = score +5")
         cursor.close
     def getscore(self):
-        cur = self.connection.cursor()
-        cur.execute("SELECT score FROM USER")
-        cur.close()
-        return cur.row[1]
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT score FROM USER")
+        cursor.close()
+        return cursor.row[1]
