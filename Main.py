@@ -99,7 +99,7 @@ def changeScore(value, modifier):
     global connection
     global cursor
     if value is not None:
-        cursor.execute("UPDATE user SET score = '" + value + "'")
+        cursor.execute("UPDATE user SET score = '" + value + "' where username = player1;")
         connection.commit()
     elif modifier is not None:
         cursor.execute("UPDATE user SET score = score " + modifier)
