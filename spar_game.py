@@ -1,16 +1,16 @@
 from flask import Flask, render_template
 from string import Template
 import random
-import database
+# from database import database
 
 
 class spar_game:
     count = 0
     score = 0
     time = 0
-
-    global db
+    # global db
     # db = database.database(None, 'localhost', 3306)
+
 
     item = ''
 
@@ -120,8 +120,9 @@ class spar_game:
     def checkQ2(self,ua):
         template = Template(render_template("spar_res.html"))
         self.calcScoreQ2(ua)
-        if db.getSpar() < self.getscore():
-            db.setSpar(self.getscore())
+        # if local:
+        #     if db.getSpar() < self.getscore():
+        #         db.setSpar(self.getscore())
         return template.substitute(score=self.score)
 
     def calcScoreQ2(self,ua):
@@ -137,6 +138,9 @@ class spar_game:
         self.calcScore(ua)
         #if db.getSpar() < self.getscore():
             #db.setSpar(self.getscore())
+        # if local:
+        #     if db.getSpar() < self.getscore():
+        #         db.setSpar(self.getscore())
         return template.substitute(score=self.score)
 
     def calcScore(self,ua):
@@ -147,7 +151,7 @@ class spar_game:
                 self.incscore(50)
         if self.correctOA[0] == ua[4].lower():
             self.incscore(50)
-        # self.score = self.score*self.difficulty(self.item)
+        self.score = self.score*self.difficulty(self.item)
         return self.score
 
     def getRes(self):
