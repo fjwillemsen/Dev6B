@@ -89,6 +89,11 @@ def sparres():
 def sparcheck():
     useranswer = [request.form['q1a'],request.form['q2a'],request.form['q3a'],request.form['q4a'],str(request.form['q5a']).lower().strip()]
     timer = request.form['timer']
+    print("ua: " + useranswer[0])
+    print("ua: " + useranswer[1])
+    print("ua: " + useranswer[2])
+    print("ua: " + useranswer[3])
+    print("ua: " + useranswer[4])
     return sparG.afterQ(useranswer,int(timer),True)
 
 @app.route('/spar/Q2-check', methods=['POST'])
@@ -116,4 +121,4 @@ if __name__ == "__main__":
 
 
     cursor = connection.cursor()
-
+    # app.run(debug=True)
