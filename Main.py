@@ -36,7 +36,7 @@ def peercoaching():
     return Peercoaching.get(Peercoaching())
 
 
-analypage = Analyse("USERNAME",connection)
+analypage = Analyse("USERNAME")
 @app.route('/analyse',methods=['GET', 'POST'])
 def analyse():
     return analypage.GetCurrentView(request)

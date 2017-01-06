@@ -1,7 +1,7 @@
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-import pymysql
+from database import database
 # from Main import changeScore
 class View:
     def __init__(self,name):
@@ -176,12 +176,12 @@ class Randomater:
 
 #Actual Analyse Class
 class Analyse:
-    def __init__(self, username, connection):
+    def __init__(self, username):
         self.requirements = self.GenerateRequirements()
         self.username = username
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
-        self.connection = connection
+        self.databasedummy = database(username)
     def GetCurrentView(self,request):
         usern = self.username
         if request.method == 'POST':
@@ -286,11 +286,6 @@ class Analyse:
              5:hallojumbo.getdiagram()})
         return Diagrams
     def addpoints(self):
-        cursor = self.connection.cursor()
-        cursor.execute("UPDATE user SET score = score +5")
-        cursor.close
+        self.databasedummy.runquery()
     def getscore(self):
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT score FROM USER")
-        cursor.close()
-        return cursor.row[1]
+        return self.databasedummy.runquery()
