@@ -125,7 +125,6 @@ if __name__ == "__main__":
     app.run(debug=True)
     connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
 
-
     cursor = connection.cursor()
 
 
