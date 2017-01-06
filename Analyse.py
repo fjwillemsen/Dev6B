@@ -1,8 +1,8 @@
- # Priority of a requirement. (Must, should, could or would)
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-
+import pymysql
+# from Main import changeScore
 class View:
     def __init__(self,name):
         self.name = name
@@ -179,12 +179,12 @@ class Analyse:
     def __init__(self, username):
         self.requirements = self.GenerateRequirements()
         self.username = username
-        # self.database = database(username)
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
-    def GetCurrentView(self,request):
-        usern = self.username
 
+    def GetCurrentView(self,request, connection):
+        usern = self.username
+        self.connection = connection
         if request.method == 'POST':
             if request.form['type']=="req":
                 first = request.form['First']
@@ -291,8 +291,11 @@ class Analyse:
              5:hallojumbo.getdiagram()})
         return Diagrams
     def addpoints(self):
-        pass
-    #     self.database.runquery(self.username)
+        cursor = self.connection.cursor()
+        cursor.execute("UPDATE user SET score = score +5")
+        cursor.close
     def getscore(self):
-    #     return self.database.getamount()
-        return 0
+        cur = self.connection.cursor()
+        cur.execute("SELECT score FROM USER")
+        cur.close()
+        return cur.row[1]

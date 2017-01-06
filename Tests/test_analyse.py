@@ -61,11 +61,11 @@ class TestAnalyse(TestCase):
             self.fail()
         else:
             pass
-    # def test_addpoints(self):
-    #     initial= self.testobject.database.getamount()
-    #     endvalue = initial + 5
-    #     self.testobject.database.runquery(self.testobject.username)
-    #     if not int(self.testobject.database.getamount())==endvalue:
-    #         self.fail()
+    def test_addpoints(self):
+        initial= self.testobject.getscore()
+        endvalue = initial + 5
+        self.testobject.addpoints()
+        if not int(self.testobject.testobject.getscore())==endvalue:
+            self.fail()
 
 
