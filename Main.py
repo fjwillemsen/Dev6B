@@ -67,7 +67,7 @@ def projectTask():
     taskID =request.form['taskID']
 
     task.isCooldownOver(taskID,connection,cursor)
-
+    #progress=task.getScoreFromDb(connection,cursor),
     return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')
@@ -119,4 +119,5 @@ if __name__ == "__main__":
 
 
     cursor = connection.cursor()
+    task.isCooldownOver(1,connection,cursor)
 
