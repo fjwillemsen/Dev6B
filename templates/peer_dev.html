@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Development tutoring.</title>
+
+    <script>
+        var count=60;
+        var counter=setInterval(timer, 1000);
+
+        function timer() {
+          count=count-1;
+          if (count <= 0) {
+             clearInterval(counter);
+             document.getElementById("form").submit();
+             return;
+          }
+
+          document.getElementById("timer").innerHTML = count + " Seconds remaining.";
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: black;
+            font-family: Arial;
+            color: rgb(255,255,255);
+            text-transform: capitalize;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #useranswer {
+            background-color: rgb(50,50,50);
+            display: inline-block;
+            color: rgb(255,0,0);
+        }
+
+        .code {
+            text-transform: lowercase;
+            display: inline-block;
+            background-color: rgb(50,50,50);
+            padding: 1em;
+        }
+
+        .indent1 {
+            text-indent: 4em;
+        }
+
+        .indent2 {
+            text-indent: 8em;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+    <h2>Development tutoring.</h2>
+    <p id="timer">60 Seconds remaining</p><br>
+    <hr>
+    </div>
+    <div>
+
+    <p class="code">for every character in string:<br>
+    &emsp;if the character's ascii value is less than 108:<br>
+    &emsp;&emsp;ascii value = ascii value - 3<br>
+    &emsp;else:<br>
+    &emsp;&emsp;ascii value = ascii value + 5<br>
+
+        Then:
+            Translate back to character.
+
+    <p>Quick, decrypt the following string using the code above:</p>
+    <p class="code">${numbercode}</p>
+    </p>
+    <form method="post" action="/development-answer" id="form">
+        <input type="text" id="answer" name="answer" style="display: none" value="${answercode}">
+        Answer:<br><input type="text" id="useranswer" name="useranswer" required autofocus><br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+    <hr>
+
+</body>
+</html>

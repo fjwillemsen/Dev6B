@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+   <a href="/"><b>Home</b></a>
+   <br>
+   <br>
+   <b >Insufficient correct answers will result in waiting few seconds before next submit is possible. </b>
+
+   <div id = "status"></div>
+   <hr>
+    <form action="/english3" method = "POST" id="formId">
+         <b>Fill in all sentences with one of the following words. Each word is only allowed to be used once.</b><br>
+         <p>spread - government - jobs - business - attended</p><br>
+         <p>The Chinese <input type ="text" name = "government" /> has a started a number of Confucius Institutes to <input type ="text" name = "spread" />  the Chinese language and
+         the country’s culture. Currently there are such institutes in over 60 countries. 2,000 students have <input type ="text" name = "attended" />
+         the program in the last two years.
+         In the Philippines people think that learning Chinese will allow them to get better <input type ="text" name = "jobs" />  in the future. As
+         more and more Chinese travel to other countries as tourists or on <input type ="text" name = "business" />  , people who can speak Chinese
+         have an advantage over others.</p>
+         <br>
+         {% if failed == 1 %}
+            <input type = "submit" value = "submit" disabled/>
+         {% else%}
+            <input type = "submit" value = "submit" />
+         {% endif %}
+
+
+    </form>
+</body>
+</html>
+<script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
+<script type="text/javascript">
+   if({{failed|safe}} == 1){
+      setTimeout(function(){window.location.href ='/english3'},{{time|safe}})
+      countDown({{time|safe}}/1000,"status");
+   }
+    function countDown(secs , elem){
+        var element = document.getElementById(elem);
+        element.innerHTML = "<h2>please wait for " + secs + " seconds</h2>";
+        if (secs < 1) {
+            clearTimeout(timer);
+        }
+        secs --;
+        var timer = setTimeout('countDown('+secs+',"'+elem+'")', 1000);
+    }
+
+</script>

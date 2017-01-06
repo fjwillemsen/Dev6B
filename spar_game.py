@@ -136,6 +136,8 @@ class spar_game:
         self.score = 0
         template = Template(render_template("spar_res.html"))
         self.calcScore(ua)
+        #if db.getSpar() < self.getscore():
+            #db.setSpar(self.getscore())
         # if local:
         #     if db.getSpar() < self.getscore():
         #         db.setSpar(self.getscore())

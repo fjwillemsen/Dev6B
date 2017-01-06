@@ -5,7 +5,7 @@
     <title>CollegeCraft</title>
     <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
     <script>
-        var count=10;
+        var count=${delay};
         var counter=setInterval(timer, 1000);
 
         function timer() {
@@ -16,7 +16,7 @@
              return;
           }
 
-          document.getElementById("timer").innerHTML = "You will be redirected in " + count + " seconds.";
+          document.getElementById("timer").innerHTML = "You will move on in " + count + " seconds.";
         }
     </script>
     <style>
@@ -41,12 +41,10 @@
     </style>
 </head>
 <body>
-    <a href="http://145.24.222.234:8080">
     <div>
         <h2>CollegeCraft</h2>
         <p>Life As A Computer Science Student</p>
     </div>
-    </a>
     <hr>
     <p>${text}</p>
     <p id="timer"></p>

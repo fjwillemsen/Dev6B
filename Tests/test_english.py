@@ -101,12 +101,16 @@ class TestEnglish(TestCase):
     def test_checkAmountCorrect(self):
         eng = English()
         #grenswaarde analyse
-        correct = ["Correct","Correct","Correct","Correct","Correct","Correct","Correct","Correct",
-                   "Wrong","Wrong","Wrong","Wrong""Wrong","Wrong","Wrong"]#net goed/op grens
-        alsoCorrect = ["Correct","Correct","Correct","Correct","Correct","Correct","Correct","Correct","Correct",
-                    "Correct","Correct","Correct","Wrong","Wrong","Wrong"]#boven grens
-        incorrect = ["Correct","Correct","Correct","Correct","Correct","Correct","Correct","Wrong",
-                     "Wrong","Wrong","Wrong","Wrong""Wrong","Wrong","Wrong"]#onder de grens
+        correct = ["Correct","Correct","Correct","Wrong","Wrong"]#net goed/op grens
+        alsoCorrect = ["Correct","Correct","Correct","Correct","Wrong"]#boven grens
+        incorrect = ["Correct","Correct","Wrong","Wrong","Wrong"]#onder de grens
         self.assertEqual(eng.checkAmountCorrect(correct),True)
         self.assertEqual(eng.checkAmountCorrect(alsoCorrect),True)
         self.assertEqual(eng.checkAmountCorrect(incorrect),False)
+
+    def test_checkAllCorrect(self):
+        eng = English()
+        correct = ["Correct","Correct","Correct","Correct","Correct"]
+        incorrect = ["Correct","Correct","Correct","Correct","Wrong"]
+        self.assertEqual(eng.checkAllCorrect(correct), True)
+        self.assertEqual(eng.checkAllCorrect(incorrect), False)

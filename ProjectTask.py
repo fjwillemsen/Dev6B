@@ -1,6 +1,8 @@
 from datetime import datetime
 from random import randint
 class ProjectTask:
+    #global db
+    #db = database.database(None, 'localhost', 3306)
     def __init__(self):
         self.project1 = [["1-1",'task1',5],["1-2",'task2',10],["1-3",'task3',10],["1-4",'task4',10],["1-5",'task5',10],["1-6",'task6',10]];
         self.project2 = [["2-1",'task1',5],["2-2",'task2',10],["2-3",'task3',10],["2-4",'task4',10],["2-5",'task5',10],["2-6",'task6',10]];
@@ -46,6 +48,7 @@ class ProjectTask:
 
 
     def updateListOftask(self,task_id):
+        #global db
         for projectTask in self.listOfProjectTask:
             for task in projectTask:
                 if task[0] == task_id:
@@ -53,6 +56,10 @@ class ProjectTask:
                     self.lastActionDate = datetime.now()
                     projectTask.remove(task);
                     self.addRandomTimeToTask(projectTask)
+                    #if (db.getProject()==0):
+                    #   db.setProject(1)
+                    #else:
+                    #   db.setProject(db.getProject()+1)
 
     def isCooldownOver(self,task_id):
         if (self.lastActionDate is None):

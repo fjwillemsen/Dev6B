@@ -1,96 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Peercoaching</title>
 
-    <title>Static Top Navbar Example for Bootstrap</title>
+    <style>
+        body {
+            background: url("http://prosureacquisitions.co.uk/wp-content/uploads/2016/05/Fotolia_74087814_Subscription_Monthly_M.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+        }
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+        div {
+            background-color: rgba(255,255,255,0.75);
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 5vh;
+            width: 100vw;
+        }
+    </style>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <h1>Peercoaching</h1>
+    <h3>What is up on this page?!</h3>
+      <p>As a peercoach, your goals is to tutor your first year students as good as possible.<br>
+          Each time they need tutoring in a different course, it is up to you what course you want to help them with.<br>
+          Each course has its own difficulty level, so choose wisely.<br>
+          After you click on a course, you will be redirected to a course page.
+      </p>
+    <p>Select a course to tutor.</p>
+    <div id="courses">
+        <form method="post" id="form">
+            <input type="radio" class="choice" name="course" id="anl" value="/peer_anl"> Analysis tutoring (Easy level) &emsp;</input>
+            <input type="radio" class="choice" name="course" id="dev" value="/peer_dev"> Development tutoring (Hard level) </input><br>
+        </form>
+    </div>
+</div>
 
-    <!-- Custom styles for this template -->
-    <link href="navbar-static-top.css" rel="stylesheet">
+<script>
+$('input[type="radio"]').on('click', function() {
+     window.location = $(this).val();
+});
+</script>
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">College craft</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="127.0.0.1:5000">Home</a></li>
-              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Classes<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/development">Development</a></li>
-                <li><a href="/analyse">Analyse</a></li>
-                <li><a href="/project">Project</a></li>
-                  <li><a href="/spar">Spar</a></li>
-                  <li><a href="/english">Engels</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/">Login</a></li>
-              <li><a href="/">Register</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
-    <div class="container theme-showcase" role="main">
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Peercoaching!</h1>
-        <p> Je bent een peercoach bij de Hogeschool Rotterdam. Wie houdt er nou niet van om geld te verdienen met een beetje niks doen?</p>
-      </div>
-
-    <br>
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-
-<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
