@@ -54,11 +54,14 @@ class ProjectTask:
 
     def getScoreFromDb(self,connection,cursor):
         sql = "SELECT project from user;"
+        res = None
         try:
             cursor.execute(sql)
             res = cursor.fetchone()
         except:
             print("dit gaat niet werken")
+
+        return res
 
     def resetScoreOnDb(self,connection,cursor):
         sql = "UPDATE user set project = 0;"

@@ -17,9 +17,7 @@ class Test_Test_ProjectTask(unittest.TestCase):
     def test_getProjectName(self):
         self.assertEqual(self.project_task.listofProjectNames[1],self.project_task.getProjectName(2))
 
-    def test_getItemDoneForProject(self):
-        self.project_task.listOfProjectTask[4] = []
-        self.assertEqual("0/8",self.project_task.getItemDoneForProject(4))
+
 
     def test_getProjectNumber_None(self):
         self.assertEqual(1,self.project_task.getProjectNumber())
