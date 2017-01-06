@@ -107,14 +107,8 @@ def changeScore(value, modifier):
 
 @app.route('/score')
 def getScore():
-    sql = "SELECT project from user;"
-    try:
-        cursor.execute(sql)
-        res = cursor.fetchone()
-    except:
-        print("dit gaat niet werken")
-
-    return res
+    changeScore(5,None)
+    return "test"
 
 if __name__ == "__main__":
     global connection
