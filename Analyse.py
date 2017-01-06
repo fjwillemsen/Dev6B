@@ -286,6 +286,6 @@ class Analyse:
              5:hallojumbo.getdiagram()})
         return Diagrams
     def addpoints(self):
-        self.databasedummy.runquery()
+        self.databasedummy.runquery(self.username)
     def getscore(self):
-        return self.databasedummy.runquery(self.username)
+        return self.databasedummy.getamount()
