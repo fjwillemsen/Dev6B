@@ -10,7 +10,7 @@ class spar_game:
     time = 0
 
     global db
-    db = database.database(None, '145.24.222.234', 3306)
+    db = database.database(None, 'localhost', 3306)
 
     item = ''
 

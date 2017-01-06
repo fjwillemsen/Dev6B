@@ -24,12 +24,13 @@ task = ProjectTask()
 q = random.sample(range(0,6),4)
 sparG = spar_game(q)
 
-db = database.database(None, '145.24.222.234', 3306)
+# db = database.database(None, 'localhost', 3306)
 
 @app.route('/')
 def index():
     temp = Template(render_template("index.html"))
-    return temp.substitute(score = db.getScore())
+    # return temp.substitute(score = db.getScore())
+    return render_template("index.html")
 
 @app.route('/english',methods = ['POST', 'GET'])
 def english():
@@ -126,7 +127,7 @@ def sparq2check():
 if __name__ == "__main__":
 
     #Uncomment before pushing to run on server / Comment when testing locally
-    app.run(host='145.24.222.234', port=8080)
+    #app.run(host='145.24.222.234', port=8080)
 
     #Uncomment when testing locally / Comment before pushing to run on server
-    #app.run(debug=True)
+    app.run(debug=True)

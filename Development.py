@@ -13,7 +13,7 @@ class Development:
     ygennumberofsteps = 0
 
     global db
-    db = database.database(None, '145.24.222.234', 3306)
+    # db = database.database(None, 'localhost', 3306)
 
     def get(self):
         temp = Template(render_template("development.html"))
@@ -22,8 +22,7 @@ class Development:
         self.generateLocation()
         print(answer)
         print(self.xgendestination, ", ", self.ygendestination)
-        return temp.substitute(devscore = db.getDev(), numbercode=code, answercode=answer,
-                               xsize = self.xgensize, ysize = self.ygensize, xnumberofsteps = self.xgennumberofsteps, ynumberofsteps = self.ygennumberofsteps, xdestination = self.xgendestination, ydestination = self.ygendestination)
+        return temp.substitute(devscore = 1, numbercode=code, answercode=answer, xsize = self.xgensize, ysize = self.ygensize, xnumberofsteps = self.xgennumberofsteps, ynumberofsteps = self.ygennumberofsteps, xdestination = self.xgendestination, ydestination = self.ygendestination)
 
     # Assignment 1
     def generateCode(self, max):
@@ -82,8 +81,8 @@ class Development:
     def checkCorrect(self, correct):
         temp = Template(render_template("development-answers.html"))
         newscore = len(correct) * 33 + 1
-        if newscore > int(db.getDev()):
-            db.setDev(newscore)
+        #if newscore > int(db.getDev()):
+            #db.setDev(newscore)
 
         if len(correct) < 1:
             return temp.substitute(text = "You didn't pass a single test. You failed us.", delay = 360)

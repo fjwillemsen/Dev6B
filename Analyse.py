@@ -181,7 +181,7 @@ class Analyse:
         self.username = username
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
-        self.database = database.database(None, '145.24.222.234', 3306)
+        #self.database = database.database(None, 'localhost', 3306)
     def GetCurrentView(self,request):
         usern = self.username
         if request.method == 'POST':
