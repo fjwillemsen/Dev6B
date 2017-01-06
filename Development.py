@@ -1,7 +1,7 @@
 import random as r
 from flask import Flask, render_template, request
 from string import Template
-import Database
+import database
 
 class Development:
 
@@ -13,7 +13,7 @@ class Development:
     ygennumberofsteps = 0
 
     global db
-    db = Database.Database(None, 'localhost', 3306)
+    db = database.database(None, 'localhost', 3306)
 
     def get(self):
         temp = Template(render_template("development.html"))

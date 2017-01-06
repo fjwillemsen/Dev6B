@@ -1,7 +1,7 @@
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-from Database import Database
+from database import database
 # from Main import changeScore
 class View:
     def __init__(self,name):

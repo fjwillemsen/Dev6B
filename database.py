@@ -1,6 +1,6 @@
 import pymysql
 
-class Database:
+class database:
 
     global connection, cursor, username, port, ip, user, password, db
     connection = None
