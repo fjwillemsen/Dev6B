@@ -34,8 +34,15 @@ def index():
 
 @app.route('/english',methods = ['POST', 'GET'])
 def english():
-    return English().getView(request)
+    return English().getView1(request)
 
+@app.route('/english2',methods = ['POST', 'GET'])
+def english2():
+    return English().getView2(request)
+
+@app.route('/english3',methods = ['POST', 'GET'])
+def english3():
+    return English().getView3(request)
 
 @app.route('/peercoaching')
 def peercoaching():
@@ -127,6 +134,7 @@ def sparq2check():
     return sparG.checkQ2(ua)
 
 if __name__ == "__main__":
+
 
     #Uncomment before pushing to run on server / Comment when testing locally
     #app.run(host='145.24.222.234', port=8080)

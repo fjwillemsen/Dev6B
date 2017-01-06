@@ -3,7 +3,11 @@
 <head>
 </head>
    <body>
-           <a href="/"><b>Home</b></a>
+   <a href="/"><b>Home</b></a>
+   {% if ref == "/english2" or ref == "/english3" %}
+        <a href= {{ref}}><b>Next exercise</b></a>
+   {% endif %}
+
    <br>
    <br>
         <p >Congratulations you have passed a super easy test.</p>

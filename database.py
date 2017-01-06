@@ -66,6 +66,20 @@ class database:
         if value is not None:
             cursor.execute(self.prepare("UPDATE user SET peercoaching = '" + value + "'"))
 
+    def setEx1(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE english_ex SET ex1 = '" + value + "'"))
+
+    def setEx2(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE english_ex SET ex2 = '" + value + "'"))
+
+    def setEx3(self, value):
+        value = str(value)
+        if value is not None:
+            cursor.execute(self.prepare("UPDATE english_ex SET ex3 = '" + value + "'"))
 
     #   Getters
 
@@ -95,4 +109,16 @@ class database:
 
     def getPeercoaching(self):
         cursor.execute(self.prepare("SELECT peercoaching FROM user"))
+        return cursor.fetchone()[0]
+
+    def getEx1(self):
+        cursor.execute(self.prepare("SELECT ex1 FROM english_ex"))
+        return cursor.fetchone()[0]
+
+    def getEx2(self):
+        cursor.execute(self.prepare("SELECT ex2 FROM english_ex"))
+        return cursor.fetchone()[0]
+
+    def getEx3(self):
+        cursor.execute(self.prepare("SELECT ex3 FROM english_ex"))
         return cursor.fetchone()[0]

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from database import database
 class English:
     def simplePresent(self, answer):
         if answer == 'likes':
@@ -85,46 +86,88 @@ class English:
             if x == "Correct":
                 cnt = cnt + 1
 
-        if cnt >= 8:
+        if cnt >= 3:
             return True
-        else:
-            return False
+        return False
 
-    def getView(self, request):
+    def checkAllCorrect(self, list):
+        cnt = 0
+        for x in list:
+            if x == "Correct":
+                cnt = cnt + 1
+
+        if cnt == 5:
+            return True
+        return False
+
+    def getView1(self, request):
         if request.method == 'POST':
             simplePresentA = request.form['Simple present']
             simplePastA = request.form['Simple past']
             futureA = request.form['Going-to future']
             presentPerfectA = request.form['Present perfect']
             pastPerfectA = request.form['Past perfect']
-            opt1 = request.form["options1"]
-            opt2 = request.form["options2"]
-            opt3 = request.form["options3"]
-            opt4 = request.form["options4"]
-            opt5 = request.form["options5"]
-            f1 = request.form["government"]
-            f2 = request.form["spread"]
-            f3 = request.form["attended"]
-            f4 = request.form["jobs"]
-            f5 = request.form["business"]
+
             a1 = self.simplePresent(simplePresentA)
             a2 = self.simplePast(simplePastA)
             a3 = self.goingToFuture(futureA)
             a4 = self.presentPerfect(presentPerfectA)
             a5 = self.pastPerfect(pastPerfectA)
+            db = database()
+            list = [a1, a2, a3, a4, a5]
+            if self.checkAmountCorrect(list):
+                if self.checkAllCorrect(list):
+                    db.setEx1(1)
+                    print("(set ex1 to 1)")
+                return render_template('checkEnglishResult.html', answers = list,ref = "/english2")
+            else:
+                return render_template('english_exercise1.html', failed = 1, time = 5000)
+        return render_template('english_exercise1.html', failed = 0)
+
+    def getView2(self, request):
+        if request.method == 'POST':
+            opt1 = request.form["options1"]
+            opt2 = request.form["options2"]
+            opt3 = request.form["options3"]
+            opt4 = request.form["options4"]
+            opt5 = request.form["options5"]
             o1 = self.opt1Check(opt1)
             o2 = self.opt2Check(opt2)
             o3 = self.opt3Check(opt3)
             o4 = self.opt4Check(opt4)
             o5 = self.opt5Check(opt5)
+            db = database()
+            list = [o1,o2,o3,o4,o5]
+            if self.checkAmountCorrect(list):
+                if self.checkAllCorrect(list):
+                    db.setEx2(1)
+                return render_template('checkEnglishResult.html', answers = list,ref = "/english3")
+            else:
+                return render_template('english_exercise2.html', failed = 1, time = 5000)
+        return render_template('english_exercise2.html', failed = 0)
+
+    def getView3(self, request):
+        if request.method == 'POST':
+            f1 = request.form["government"]
+            f2 = request.form["spread"]
+            f3 = request.form["attended"]
+            f4 = request.form["jobs"]
+            f5 = request.form["business"]
             a11 = self.govCheck(f1)
             a12 = self.sprCheck(f2)
             a13 = self.attCheck(f3)
             a14 = self.jobCheck(f4)
             a15 = self.busCheck(f5)
-            list = [a1, a2, a3, a4, a5,o1,o2,o3,o4,o5,a11,a12,a13,a14,a15]
+            db = database()
+            list = [a11,a12,a13,a14,a15]
             if self.checkAmountCorrect(list):
-                return render_template('checkEnglishResult.html', answers = list)
+                if self.checkAllCorrect(list):
+                    db.setEx3(1)
+                    if db.getEx1() == 1 and db.getEx2() == 1 and db.getEx3() == 1:
+                        db.setEng(1)
+                    print("set x3 to 1 and user english=1 "
+                          "if each x1,x2,x3 == 1. global = all score from vakken together")
+                return render_template('checkEnglishResult.html', answers = list,ref = "empty")
             else:
-                return render_template('english_exercises.html', failed = 1, time = 5000)
-        return render_template('english_exercises.html', failed = 0)
+                return render_template('english_exercise3.html', failed = 1, time = 5000)
+        return render_template('english_exercise3.html', failed = 0)
