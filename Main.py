@@ -6,6 +6,8 @@ from flask import Flask, render_template, request
 import pymysql
 from Development import Development
 from Peercoaching import Peercoaching
+from Peer_dev import Peer_dev
+from Peer_anl import Peer_anl
 from spar_game import spar_game
 
 import random
@@ -34,6 +36,24 @@ def english():
 @app.route('/peercoaching')
 def peercoaching():
     return Peercoaching.get(Peercoaching())
+
+@app.route('/peer_dev')
+def peer_dev():
+    return Peer_dev.get(Peer_dev())
+
+@app.route('/peer_anl')
+def peer_anl():
+    return Peer_anl.get(Peer_anl())
+
+@app.route('/peeranl_answer', methods=['POST'])
+def peeranl_answer():
+    print('Answer: ' + str(request.form.get('answer')))
+    print('Useranswer: ' + str(request.form.get('useranswer')))
+    if str(request.form.get('answer')) == str(request.form.get('useranswer')):
+        return "<p> WINNING! </p>"
+    else:
+        return "<p> LOSUR! </p>"
+
 
 
 analypage = Analyse("USERNAME")
