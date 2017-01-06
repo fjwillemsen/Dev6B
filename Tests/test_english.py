@@ -107,3 +107,10 @@ class TestEnglish(TestCase):
         self.assertEqual(eng.checkAmountCorrect(correct),True)
         self.assertEqual(eng.checkAmountCorrect(alsoCorrect),True)
         self.assertEqual(eng.checkAmountCorrect(incorrect),False)
+
+    def test_checkAllCorrect(self):
+        eng = English()
+        correct = ["Correct","Correct","Correct","Correct","Correct"]
+        incorrect = ["Correct","Correct","Correct","Correct","Wrong"]
+        self.assertEqual(eng.checkAllCorrect(correct), True)
+        self.assertEqual(eng.checkAllCorrect(incorrect), False)
