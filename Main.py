@@ -6,7 +6,11 @@ from flask import Flask, render_template, request
 import pymysql
 from Development import Development
 from Peercoaching import Peercoaching
+from Peer_dev import Peer_dev
+from Peer_anl import Peer_anl
 from spar_game import spar_game
+from string import Template
+import database
 
 import random
 
@@ -17,14 +21,15 @@ class Account:
 
 app = Flask(__name__,static_url_path='/../static')
 task = ProjectTask()
-global connection
-global cursor
 q = random.sample(range(0,6),4)
 sparG = spar_game(q)
 
+db = database.database(None, '145.24.222.234', 3306)
+
 @app.route('/')
 def index():
-    return render_template("index.html")
+    temp = Template(render_template("index.html"))
+    return temp.substitute(score = db.getScore())
 
 @app.route('/english',methods = ['POST', 'GET'])
 def english():
@@ -41,6 +46,24 @@ def english3():
 @app.route('/peercoaching')
 def peercoaching():
     return Peercoaching.get(Peercoaching())
+
+@app.route('/peer_dev')
+def peer_dev():
+    return Peer_dev.get(Peer_dev())
+
+@app.route('/peer_anl')
+def peer_anl():
+    return Peer_anl.get(Peer_anl())
+
+@app.route('/peeranl_answer', methods=['POST'])
+def peeranl_answer():
+    print('Answer: ' + str(request.form.get('answer')))
+    print('Useranswer: ' + str(request.form.get('useranswer')))
+    if str(request.form.get('answer')) == str(request.form.get('useranswer')):
+        return "<p> WINNING! </p>"
+    else:
+        return "<p> LOSUR! </p>"
+
 
 
 analypage = Analyse("USERNAME")
@@ -107,37 +130,11 @@ def sparq2check():
     ua = request.form['qq'].lower().strip()
     return sparG.checkQ2(ua)
 
-def changeScore(value):
-    if value is not None:
-        cursor.execute("UPDATE user SET score = '" + value + "';")
-
-def changeDev(value):
-    if value is not None:
-        cursor.execute("UPDATE user SET development = '" + value + "';")
-
-def getScore(value):
-    if value is not None:
-        cursor.execute("SELECT score FROM user;")
-
-def getDev(value):
-    if value is not None:
-        cursor.execute("SELECT development FROM user;")
-
-# def setGlobalScore():
-#     cursor.execute("UPDATE user SET score = '" + "english+spar+dev+anl etc" + "'")
-
 if __name__ == "__main__":
 
-    global connection
-    global cursor
 
     #Uncomment before pushing to run on server / Comment when testing locally
-    #app.run(host='145.24.222.234', port=8080)
-    #connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    app.run(host='145.24.222.234', port=8080)
 
     #Uncomment when testing locally / Comment before pushing to run on server
-    app.run(debug=True)
-    # connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
-    #
-    #
-    # cursor = connection.cursor()
+    #app.run(debug=True)
