@@ -104,20 +104,21 @@ def changeScore(value, modifier):
         cursor.execute("UPDATE user SET score = '" + value + "'")
     elif modifier is not None:
         cursor.execute("UPDATE user SET score = score " + modifier)
-
+connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+cursor = connection.cursor()
 if __name__ == "__main__":
     global connection
     global cursor
 
     #Uncomment before pushing to run on server / Comment when testing locally
     app.run(host='145.24.222.234', port=8080)
-    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    
 
     #Uncomment when testing locally / Comment before pushing to run on server
     #app.run(debug=True)
     #connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
 
 
-    cursor = connection.cursor()
+    
     
 task.isCooldownOver(1,connection,cursor)
