@@ -120,4 +120,4 @@ if __name__ == "__main__":
 
     cursor = connection.cursor()
 
-changeScore(5,None)
+    changeScore(5,None)
