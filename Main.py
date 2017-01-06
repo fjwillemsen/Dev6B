@@ -101,7 +101,7 @@ def sparq2check():
 
 def changeScore(value, modifier):
     if value is not None:
-        cursor.execute("UPDATE user SET score = '" + value + "'")
+        cursor.execute("UPDATE user SET score = " + value + ";")
     elif modifier is not None:
         cursor.execute("UPDATE user SET score = score " + modifier)
 
