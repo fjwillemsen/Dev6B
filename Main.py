@@ -121,12 +121,12 @@ if __name__ == "__main__":
     global cursor
 
     #Uncomment before pushing to run on server / Comment when testing locally
-    app.run(host='145.24.222.234', port=8080)
-    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+    # app.run(host='145.24.222.234', port=8080)
+    # connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
 
     #Uncomment when testing locally / Comment before pushing to run on server
-    # app.run(debug=True)
-    # connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
+    app.run(debug=True)
+    connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
 
 
     cursor = connection.cursor()
