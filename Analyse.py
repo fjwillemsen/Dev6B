@@ -288,4 +288,4 @@ class Analyse:
     def addpoints(self):
         self.databasedummy.runquery()
     def getscore(self):
-        return self.databasedummy.runquery()
+        return self.databasedummy.runquery(self.username)
