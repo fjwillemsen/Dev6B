@@ -78,7 +78,7 @@ class ProjectTask:
                     self.lastActionDate = datetime.now()
                     projectTask.remove(task);
                     self.addRandomTimeToTask(projectTask)
-                    self.setScore2Db(connection,cursor)
+                  #  self.setScore2Db(connection,cursor)
 
     def updateListOftask_UNITTEST(self,task_id):
         for projectTask in self.listOfProjectTask:

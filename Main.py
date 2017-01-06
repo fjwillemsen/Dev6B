@@ -56,19 +56,16 @@ def project():
 
 @app.route('/project/<int:project_id>')
 def project1(project_id):
-    global connection
-    global cursor
     return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/project_task', methods=['POST'])
 def projectTask():
-    global connection
-    global cursor
     taskID =request.form['taskID']
 
-    task.isCooldownOver(taskID,connection,cursor)
+    if (task.isCooldownOver(taskID)):
+        return "missing call"
 
-    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getScoreFromDb(connection,cursor),pName=task.getProjectName(task.getProjectNumber()))
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')
 def spar():
@@ -101,14 +98,9 @@ def sparq2check():
 
 def changeScore(value, modifier):
     if value is not None:
-        cursor.execute("UPDATE user SET score = " + value + ";")
+        cursor.execute("UPDATE user SET score = '" + value + "'")
     elif modifier is not None:
         cursor.execute("UPDATE user SET score = score " + modifier)
-
-@app.route('/score')
-def getScore():
-    changeScore(5,None)
-    return "test"
 
 if __name__ == "__main__":
     global connection
@@ -125,4 +117,3 @@ if __name__ == "__main__":
 
     cursor = connection.cursor()
 
-    changeScore(5,None)
