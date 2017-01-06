@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CollegeCraft</title>
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
+    <script>
+        var count=10;
+        var counter=setInterval(timer, 1000);
+
+        function timer() {
+          count=count-1;
+          if (count <= 0) {
+             clearInterval(counter);
+             window.location = "http://145.24.222.234:8080";
+             return;
+          }
+
+          document.getElementById("timer").innerHTML = "You will be redirected in " + count + " seconds.";
+        }
+    </script>
+    <style>
+        body, a {
+            background-color: black;
+            color: rgb(53,240,55);
+            font-family: 'Anonymous Pro', monospace;
+            text-transform: capitalize;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none
+        }
+
+    </style>
+</head>
+<body>
+    <a href="http://145.24.222.234:8080">
+    <div>
+        <h2>CollegeCraft</h2>
+        <p>Life As A Computer Science Student</p>
+    </div>
+    </a>
+    <hr>
+    <p>${text}</p>
+    <p id="timer"></p>
+</body>
+</html>

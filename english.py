@@ -87,8 +87,17 @@ class English:
 
         if cnt >= 3:
             return True
-        else:
-            return False
+        return False
+
+    def checkAllCorrect(self, list):
+        cnt = 0
+        for x in list:
+            if x == "Correct":
+                cnt = cnt + 1
+
+        if cnt == 5:
+            return True
+        return False
 
     def getView1(self, request):
         if request.method == 'POST':
@@ -106,6 +115,8 @@ class English:
 
             list = [a1, a2, a3, a4, a5]
             if self.checkAmountCorrect(list):
+                if self.checkAllCorrect(list):
+                    print("(set ex1 to 1)")
                 return render_template('checkEnglishResult.html', answers = list,ref = "/english2")
             else:
                 return render_template('english_exercise1.html', failed = 1, time = 5000)
@@ -125,6 +136,8 @@ class English:
             o5 = self.opt5Check(opt5)
             list = [o1,o2,o3,o4,o5]
             if self.checkAmountCorrect(list):
+                if self.checkAllCorrect(list):
+                    print("(set ex2 to 1)")
                 return render_template('checkEnglishResult.html', answers = list,ref = "/english3")
             else:
                 return render_template('english_exercise2.html', failed = 1, time = 5000)
@@ -144,7 +157,10 @@ class English:
             a15 = self.busCheck(f5)
             list = [a11,a12,a13,a14,a15]
             if self.checkAmountCorrect(list):
-                return render_template('checkEnglishResult.html', answers = list)
+                if self.checkAllCorrect(list):
+                    print("set x3 to 1 and user english=1 "
+                          "if each x1,x2,x3 == 1. global = all score from vakken together")
+                return render_template('checkEnglishResult.html', answers = list,ref = "empty")
             else:
                 return render_template('english_exercise3.html', failed = 1, time = 5000)
         return render_template('english_exercise3.html', failed = 0)
