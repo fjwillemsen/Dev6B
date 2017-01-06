@@ -10,7 +10,7 @@ class spar_game:
     time = 0
 
     global db
-    db = database.database(None, 'localhost', 3306)
+    # db = database.database(None, 'localhost', 3306)
 
     item = ''
 
@@ -135,8 +135,8 @@ class spar_game:
         self.score = 0
         template = Template(render_template("spar_res.html"))
         self.calcScore(ua)
-        if db.getSpar() < self.getscore():
-            db.setSpar(self.getscore())
+        #if db.getSpar() < self.getscore():
+            #db.setSpar(self.getscore())
         return template.substitute(score=self.score)
 
     def calcScore(self,ua):
@@ -147,7 +147,7 @@ class spar_game:
                 self.incscore(50)
         if self.correctOA[0] == ua[4].lower():
             self.incscore(50)
-        self.score = self.score*self.difficulty(self.item)
+        # self.score = self.score*self.difficulty(self.item)
         return self.score
 
     def getRes(self):
