@@ -62,8 +62,7 @@ def project1(project_id):
 def projectTask():
     taskID =request.form['taskID']
 
-    if (task.isCooldownOver(taskID)):
-        return "missing call"
+    task.isCooldownOver(taskID)
 
     return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
