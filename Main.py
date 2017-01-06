@@ -3,7 +3,7 @@ from english import English
 from Analyse import Analyse
 from Spar import Spar
 from flask import Flask, render_template, request
-
+import pymysql
 from Development import Development
 from Peercoaching import Peercoaching
 from spar_game import spar_game
@@ -17,6 +17,8 @@ class Account:
 
 app = Flask(__name__,static_url_path='/../static')
 task = ProjectTask()
+global connection
+global cursor
 q = random.sample(range(0,6),4)
 sparG = spar_game(q)
 
@@ -41,31 +43,29 @@ def analyse():
 
 @app.route('/development')
 def development():
-    return Development.get(Development())
+    return Development().get()
 
 @app.route('/development-answer', methods=['POST'])
 def developmentanswer():
-    print('Answer: ' + str(request.form.get('answer')))
-    print('Useranswer: ' + str(request.form.get('useranswer')))
-    if str(request.form.get('answer')) == str(request.form.get('useranswer')):
-        return "<p>Congratz!</p>"
-    else:
-        return "<p>Failure</p>"
+    return Development().answers(request.form)
 
 @app.route('/project/')
 def project():
-    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+    #return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+    return project1(1)
 
 @app.route('/project/<int:project_id>')
 def project1(project_id):
-    return render_template("Projects.html",taskList=task.getListOfTask(project_id),time=task.getSecTimeLeftOnCounter())
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/project_task', methods=['POST'])
 def projectTask():
     taskID =request.form['taskID']
 
-    task.isCooldownOver(taskID)
-    return render_template("Projects.html",taskList=task.getListOfTask(1),time=task.getSecTimeLeftOnCounter())
+    if (task.isCooldownOver(taskID)):
+        return "missing call"
+
+    return render_template("Projects.html",taskList=task.getListOfTask(task.getProjectNumber()),time=task.getSecTimeLeftOnCounter(),progress=task.getItemDoneForProject(task.getProjectNumber()),pName=task.getProjectName(task.getProjectNumber()))
 
 @app.route('/spar')
 def spar():
@@ -101,6 +101,24 @@ def sparq2check():
     ua = request.form['qq'].lower().strip()
     return sparG.checkQ2(ua)
 
+def changeScore(value, modifier):
+    if value is not None:
+        cursor.execute("UPDATE user SET score = '" + value + "'")
+    elif modifier is not None:
+        cursor.execute("UPDATE user SET score = score " + modifier)
+
 if __name__ == "__main__":
-    # app.run(host='145.24.222.234', port=8080)
-    app.run(debug=True)
+    global connection
+    global cursor
+
+    #Uncomment before pushing to run on server / Comment when testing locally
+    app.run(host='145.24.222.234', port=8080)
+    connection = pymysql.connect(host='localhost', port=8081, user='root', passwd='2cKF97', db='CollegeCraft')
+
+    #Uncomment when testing locally / Comment before pushing to run on server
+    #app.run(debug=True)
+    #connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='2cKF97', db='CollegeCraft')
+
+
+    cursor = connection.cursor()
+    # app.run(debug=True)

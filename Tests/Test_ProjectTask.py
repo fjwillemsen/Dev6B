@@ -14,10 +14,35 @@ class Test_Test_ProjectTask(unittest.TestCase):
     def test_getListOfTask(self):
         self.assertEqual(self.project_task.project2,self.project_task.getListOfTask(2))
 
+    def test_getProjectName(self):
+        self.assertEqual(self.project_task.listofProjectNames[1],self.project_task.getProjectName(2))
+
+    def test_getItemDoneForProject(self):
+        self.project_task.listOfProjectTask[4] = []
+        self.assertEqual("0/8",self.project_task.getItemDoneForProject(4))
+
+    def test_getProjectNumber_None(self):
+        self.assertEqual(1,self.project_task.getProjectNumber())
+
+    def test_getProjectNumber_Some(self):
+        self.project_task.listOfProjectTask[0] =[]
+        self.project_task.listOfProjectTask[1] =[]
+        self.project_task.listOfProjectTask[2] =[]
+        self.assertEqual(4,self.project_task.getProjectNumber())
+
+    def test_getProjectNumber_All(self):
+        self.project_task.listOfProjectTask[0] =[]
+        self.project_task.listOfProjectTask[1] =[]
+        self.project_task.listOfProjectTask[2] =[]
+        self.project_task.listOfProjectTask[3] =[]
+        self.project_task.listOfProjectTask[4] =[]
+        self.project_task.listOfProjectTask[5] =[]
+        self.project_task.listOfProjectTask[6] =[]
+        self.assertEqual(7,self.project_task.getProjectNumber())
 
     def test_UpdateTaskList(self):
         self.project_task.updateListOftask("4-3")
-        self.assertEqual(5,len(self.project_task.project4))
+        self.assertEqual(7,len(self.project_task.project4))
         self.assertEqual(10,self.project_task.cooldownSecOver)
         self.assertFalse(self.project_task.lastActionDate is None)
 

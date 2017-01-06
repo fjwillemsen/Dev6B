@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <title>CollegeCraft</title>
     <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
+    <script>
+        var count=60;
+        var counter=setInterval(timer, 1000);
+
+        function timer() {
+          count=count-1;
+          if (count <= 0) {
+             clearInterval(counter);
+             document.getElementById("form").submit();
+             return;
+          }
+
+          document.getElementById("timer").innerHTML = count + " Seconds remaining.";
+        }
+    </script>
     <style>
-        body {
+        body, a {
             background-color: black;
             color: rgb(53,240,55);
             font-family: 'Anonymous Pro', monospace;
@@ -13,6 +28,10 @@
             text-align: center;
             padding: 0;
             margin: 0;
+        }
+
+        a {
+            text-decoration: none
         }
 
         h2 {
@@ -43,35 +62,64 @@
     </style>
 </head>
 <body>
-    <div>
+    <a href="http://145.24.222.234:8080">
     <h2>CollegeCraft</h2>
     <p>Life As A Computer Science Student</p>
-
+    </a>
     <hr>
+        <p>Here, your skills will be put to the ultimate test.<br>
+        Only the best will be able to complete this series of tests within the timeframe.<br>
+        Best of luck.</p>
+    <hr>
+    <p id="timer">60 Seconds remaining</p>
     </div>
     <div>
+        <p class="code">for every character in string:<br>
+        &emsp;if character is less than 5:<br>
+        &emsp;&emsp;character = character + 4<br>
+        &emsp;else:<br>
+        &emsp;&emsp;character = character - 3<br>
 
-    <p class="code">for every character in string:<br>
-    &emsp;if character is less than 5:<br>
-    &emsp;&emsp;character = character + 4<br>
-    &emsp;else:<br>
-    &emsp;&emsp;character = character - 3<br>
-
-    <p>Quick, decrypt the following string using the code above:</p>
-    <p class="code">${numbercode}</p>
-    </p>
-    <form method="post" action="/development-answer" id="form">
-        <input type="text" id="answer" name="answer" style="display: none" value="${answercode}">
-        Answer:<br><input type="text" id="useranswer" name="useranswer" required autofocus><br>
-        <input type="submit" value="Submit">
-    </form>
+        <p>Quick, decrypt the following string using the code above:</p>
+        <p class="code">${numbercode}</p>
+        </p>
+        <form method="post" action="/development-answer" id="form">
+            <input type="text" id="answer1" name="answer1" style="display: none" value="${answercode}">
+            Answer:<br><input type="text" id="useranswer1" name="useranswer1" required><br>
     </div>
     <hr>
     <div>
         <p><br>
-            You start at point (0,0). Take a step in the direction (10,0) until you are above point (45,0). Then take five steps in the direction (0,2).<br>
+            Find out what the destination is using the instructions:<br>
+            You start at point (0,0). Take ${xnumberofsteps} steps of the size (${xsize},0). Then take ${ynumberofsteps} steps of the size (0,${ysize}).<br>
             Where do you end up?
         </p>
+            <input type="text" id="answer2x" name="answer2x" style="display: none" value="${xdestination}">
+            X:<br><input type="text" id="useranswer2x" name="useranswer2x" required><br>
+            <input type="text" id="answer2y" name="answer2y" style="display: none" value="${ydestination}">
+            Y:<br><input type="text" id="useranswer2y" name="useranswer2y" required><br>
+    </div>
+    <div>
+        <p><br>
+            Test your knowledge of data types. You'll see some different forms of data, choose the correct data type for each one.<br>
+            Pick from the following data types: int, array, string or double.
+        </p>
+            <input type="text" id="answer3.1" name="answer3.1" style="display: none" value="string">
+            x = "Hello world":<br><input type="text" id="useranswer3.1" name="useranswer3.1" required><br>
+            <input type="text" id="answer3.2" name="answer3.2" style="display: none" value="double">
+            x = 5.5:<br><input type="text" id="useranswer3.2" name="useranswer3.2" required><br>
+            <input type="text" id="answer3.3" name="answer3.3" style="display: none" value="array">
+            x = [7, 3]:<br><input type="text" id="useranswer3.3" name="useranswer3.3" required><br>
+            <input type="text" id="answer3.4" name="answer3.4" style="display: none" value="int">
+            x = 7:<br><input type="text" id="useranswer3.4" name="useranswer3.4" required><br>
+            <input type="text" id="answer3.5" name="answer3.5" style="display: none" value="double">
+            x = 3.9:<br><input type="text" id="useranswer3.5" name="useranswer3.5" required><br>
+            <input type="text" id="answer3.6" name="answer3.6" style="display: none" value="string">
+            x = "Hello, how are you?":<br><input type="text" id="useranswer3.6" name="useranswer3.6" required><br>
+            <input type="text" id="answer3.7" name="answer3.7" style="display: none" value="array">
+            x = ["hello", "it's me"]:<br><input type="text" id="useranswer3.7" name="useranswer3.7" required><br>
+            <input type="submit" value="Submit">
+        </form>
     </div>
 </body>
 </html>
