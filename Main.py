@@ -24,7 +24,7 @@ task = ProjectTask()
 q = random.sample(range(0,6),4)
 sparG = spar_game(q)
 
-db = database.database(None, 'localhost', 3306)
+db = database.database(None, '145.24.222.234', 3306)
 
 @app.route('/')
 def index():
