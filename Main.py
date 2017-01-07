@@ -140,4 +140,4 @@ if __name__ == "__main__":
     app.run(host='145.24.222.234', port=8080)
 
     #Uncomment when testing locally / Comment before pushing to run on server
-    #app.run(debug=True)
+    # app.run(debug=True)

@@ -113,12 +113,12 @@ class English:
             a3 = self.goingToFuture(futureA)
             a4 = self.presentPerfect(presentPerfectA)
             a5 = self.pastPerfect(pastPerfectA)
-            db = database()
+            # db = database('root', 'localhost',3306)
             list = [a1, a2, a3, a4, a5]
             if self.checkAmountCorrect(list):
-                if self.checkAllCorrect(list):
-                    db.setEx1(1)
-                    print("(set ex1 to 1)")
+                # if self.checkAllCorrect(list):
+                #     db.setEx1(1)
+                #     print("(set ex1 to 1)")
                 return render_template('checkEnglishResult.html', answers = list,ref = "/english2")
             else:
                 return render_template('english_exercise1.html', failed = 1, time = 5000)
@@ -136,11 +136,12 @@ class English:
             o3 = self.opt3Check(opt3)
             o4 = self.opt4Check(opt4)
             o5 = self.opt5Check(opt5)
-            db = database()
+            # db = database('root', 'localhost',3306)
             list = [o1,o2,o3,o4,o5]
             if self.checkAmountCorrect(list):
-                if self.checkAllCorrect(list):
-                    db.setEx2(1)
+                # if self.checkAllCorrect(list):
+                #     db.setEx2(1)
+                #     print('set ex2 to 1')
                 return render_template('checkEnglishResult.html', answers = list,ref = "/english3")
             else:
                 return render_template('english_exercise2.html', failed = 1, time = 5000)
@@ -158,15 +159,15 @@ class English:
             a13 = self.attCheck(f3)
             a14 = self.jobCheck(f4)
             a15 = self.busCheck(f5)
-            db = database()
+            # db = database('root', 'localhost',3306)
             list = [a11,a12,a13,a14,a15]
             if self.checkAmountCorrect(list):
-                if self.checkAllCorrect(list):
-                    db.setEx3(1)
-                    if db.getEx1() == 1 and db.getEx2() == 1 and db.getEx3() == 1:
-                        db.setEng(1)
-                    print("set x3 to 1 and user english=1 "
-                          "if each x1,x2,x3 == 1. global = all score from vakken together")
+                # if self.checkAllCorrect(list):
+                #     db.setEx3(1)
+                #     if db.getEx1() == 1 and db.getEx2() == 1 and db.getEx3() == 1:
+                #         db.setEng(1)
+                #     print("set x3 to 1 and user english=1 "
+                #           "if each x1,x2,x3 == 1. global = all score from vakken together")
                 return render_template('checkEnglishResult.html', answers = list,ref = "empty")
             else:
                 return render_template('english_exercise3.html', failed = 1, time = 5000)
