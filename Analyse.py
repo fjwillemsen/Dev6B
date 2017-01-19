@@ -1,7 +1,7 @@
 from flask import render_template,request
 import random
 from datetime import datetime, timedelta
-import database
+#import database
 # from Main import changeScore
 class View:
     def __init__(self,name):
@@ -181,7 +181,8 @@ class Analyse:
         self.username = username
         self.cooldowntillreq = datetime.now() - timedelta(days=10)
         self.cooldowntilldia = datetime.now() - timedelta(days=10)
-        self.database = database.database(None, '145.24.222.234', 3306)
+        #self.database = database.database(None, '145.24.222.234', 3306)
+        self.currentscore= 0;
     def GetCurrentView(self,request):
         usern = self.username
         if request.method == 'POST':
@@ -191,7 +192,7 @@ class Analyse:
                 third = request.form['Third']
                 four = request.form['Fourth']
                 if self.CheckReq(first, second, third, four, self.requirements):
-                    self.database.setAnalyse(5)
+                    self.currentscore +=5
                     self.cooldowntillreq = datetime.now() + timedelta(minutes=1)
             if request.form['type'] == "dia":
                 dev = request.form['Dev']
@@ -200,7 +201,7 @@ class Analyse:
                 pro = request.form['Pro']
                 use = request.form['Use']
                 if self.CheckDia(dev,log,phy,pro,use,self.diagrams):
-                    self.database.setAnalyse(10)
+                    self.currentscore +=5
                     self.cooldowntilldia = datetime.now() + timedelta(minutes=1)
         #IF NOT A POST REQUEST; RELOAD THE PAGE AND GENERATE NEW REQUIREMENTS
         else:
@@ -209,7 +210,7 @@ class Analyse:
 
         self.requirementstatus = self.CheckTimerReq()
         self.diagramstatus = self.CheckTimerDia()
-        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=self.database.getAnalyse())
+        return render_template("analyse.html", user=usern, requirements=self.requirements, datedia = self.cooldowntilldia ,datereq=self.cooldowntillreq, diagrams=self.diagrams, attempt=False, requirementscompleted=self.requirementstatus,diagramscompleted=self.diagramstatus,score=self.currentscore)
 
     def CheckTimerReq(self):
         returnvalue = False
